@@ -173,7 +173,7 @@
       return `<code>${value}</code>`;
     }
 
-    fetch("mints.json")
+    fetch("mints.json?v=2")
       .then(r => r.json())
       .then(data => {
         const table = new Tabulator("#mints-table", {
