@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cashu Mint Directory</title>
+  <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet" />
+  <script src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+  <style>
+    :root {
+      --bg: #0b0c0f;
+      --panel: #14161b;
+      --text: #e6e8ef;
+      --muted: #9aa0b2;
+      --accent: #ffae00;
+      --border: #2a2d36;
+      --link: #5ebcf7;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 1.5rem 1rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    h1 {
+      font-size: 1.35rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin: 0.25rem 0 0 2.25rem;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    input[type="search"], button {
+      padding: 0.45rem 0.7rem;
+      border-radius: 0.4rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    button {
+      cursor: pointer;
+      background: #23252d;
+      transition: background 0.15s;
+    }
+
+    button:hover { background: #2d303a; }
+
+    main { padding: 1rem; }
+
+    #mints-table { margin-top: 0.75rem; }
+
+    .tabulator { border: 1px solid var(--border); border-radius: 0.4rem; }
+
+    .tabulator .tabulator-header {
+      background: var(--panel);
+      color: var(--text);
+      border-color: var(--border);
+      font-weight: 600;
+    }
+
+    .tabulator .tabulator-header .tabulator-col { border-color: var(--border); }
+
+    .tabulator .tabulator-tableholder .tabulator-table {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .tabulator-row { border-color: var(--border); }
+    .tabulator-row.tabulator-row-even { background: #101218; }
+    .tabulator-row.tabulator-row-odd { background: var(--bg); }
+    .tabulator-row:hover { background: #1a1c24; }
+
+    .tabulator-cell a {
+      color: var(--link);
+      text-decoration: none;
+    }
+    .tabulator-cell a:hover { text-decoration: underline; }
+
+    .tabulator .tabulator-footer {
+      background: var(--panel);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    footer {
+      padding: 1rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1><span class="logo"></span> Cashu Mint Directory</h1>
+      <p class="subtitle">Live-ish list of Cashu mints with info pulled from each mint’s <code>/v1/info</code> endpoint.</p>
+    </div>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Search mints..." />
+      <button id="dl-csv">Download CSV</button>
+      <button id="dl-json">Download JSON</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="mints-table"></div>
+  </main>
+
+  <footer>
+    Data sourced from <code>awesome-cashu</code>, MintRadar, and direct <code>/v1/info</code> requests.
+  </footer>
+
+  <script>
+    function semverSorter(a, b) {
+      const va = (a || "").replace(/^[^0-9]*/, "").replace(/-.*/, "").split(".").map(n => parseInt(n, 10) || 0);
+      const vb = (b || "").replace(/^[^0-9]*/, "").replace(/-.*/, "").split(".").map(n => parseInt(n, 10) || 0);
+      for (let i = 0; i < Math.max(va.length, vb.length); i++) {
+        const na = va[i] || 0, nb = vb[i] || 0;
+        if (na !== nb) return na - nb;
+      }
+      return String(a).localeCompare(String(b));
+    }
+
+    function linkFormatter(cell) {
+      const value = cell.getValue();
+      if (!value) return "";
+      return `<a href="${value}" target="_blank" rel="noopener">${value}</a>`;
+    }
+
+    function monoFormatter(cell) {
+      const value = cell.getValue();
+      if (!value) return "";
+      return `<code>${value}</code>`;
+    }
+
+    fetch("mints.json")
+      .then(r => r.json())
+      .then(data => {
+        const table = new Tabulator("#mints-table", {
+          data: data,
+          layout: "fitColumns",
+          responsiveLayout: "hide",
+          resizableColumns: true,
+          movableColumns: true,
+          pagination: true,
+          paginationSize: 100,
+          paginationSizeSelector: [25, 50, 100, true],
+          initialSort: [
+            { column: "implementation", dir: "asc" },
+            { column: "version", dir: "desc" }
+          ],
+          columns: [
+            { title: "Name", field: "name", sorter: "string", widthGrow: 1.5, headerFilter: "input" },
+            { title: "URL", field: "url", formatter: linkFormatter, sorter: "string", widthGrow: 2, headerFilter: "input" },
+            { title: "Implementation", field: "implementation", sorter: "string", headerFilter: "input" },
+            { title: "Version", field: "version", sorter: semverSorter, headerFilter: "input" },
+            { title: "NUTs", field: "nuts", sorter: "number", width: 80, hozAlign: "center" },
+            { title: "Email", field: "email", sorter: "string", widthGrow: 1, headerFilter: "input" },
+            { title: "X / Twitter", field: "x", sorter: "string", widthGrow: 0.8, headerFilter: "input" },
+            { title: "Nostr", field: "nostr", formatter: monoFormatter, sorter: "string", widthGrow: 1.2, headerFilter: "input" },
+            { title: "Other Contact", field: "other_contact", sorter: "string", widthGrow: 1, headerFilter: "input" }
+          ]
+        });
+
+        document.getElementById("search").addEventListener("input", function(e) {
+          table.setFilter([
+            [
+              { field: "name", type: "like", value: e.target.value },
+              { field: "url", type: "like", value: e.target.value },
+              { field: "implementation", type: "like", value: e.target.value }
+            ]
+          ]);
+        });
+
+        document.getElementById("dl-csv").addEventListener("click", () => table.download("csv", "cashu-mints.csv"));
+        document.getElementById("dl-json").addEventListener("click", () => table.download("json", "cashu-mints.json"));
+      })
+      .catch(err => {
+        document.getElementById("mints-table").innerHTML = `<p style="color:#ff6b6b">Failed to load mint data: ${err.message}</p>`;
+      });
+  </script>
+</body>
+</html>
