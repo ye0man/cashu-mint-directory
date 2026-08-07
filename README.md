@@ -2,7 +2,7 @@
 
 An interactive directory of Cashu mints.
 
-**[Open the interactive table](https://cashubtc.github.io/mint-directory/)**
+**[Open the interactive table](https://ye0man.github.io/mint-directory/)**
 
 It is built with [Tabulator](https://tabulator.info/), is fed by [`docs/mints.json`](./docs/mints.json), and supports sorting, filtering, column resizing/reordering, and CSV/JSON export.
 
