@@ -75,8 +75,8 @@
 
     .filters {
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      align-items: flex-start;
+      gap: 1rem;
       flex-wrap: wrap;
       padding: 0.75rem 1rem;
       background: var(--panel);
@@ -85,28 +85,112 @@
 
     .filter-group {
       display: flex;
-      align-items: center;
-      gap: 0.4rem;
+      flex-direction: column;
+      gap: 0.35rem;
+      min-width: 10rem;
     }
 
     .filter-group label {
       color: var(--muted);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
-    select[multiple], select {
-      min-width: 8rem;
-      max-width: 14rem;
-      padding: 0.4rem;
-      border-radius: 0.4rem;
-      border: 1px solid var(--border);
+    .multi-select {
+      position: relative;
+      min-width: 12rem;
+      max-width: 18rem;
+    }
+
+    .multi-select-trigger {
+      width: 100%;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .multi-select-trigger::after {
+      content: "▼";
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    .multi-select.open .multi-select-trigger::after {
+      content: "▲";
+    }
+
+    .multi-select-dropdown {
+      position: absolute;
+      top: calc(100% + 0.35rem);
+      left: 0;
+      z-index: 100;
+      min-width: 100%;
+      max-height: 18rem;
+      overflow-y: auto;
       background: var(--surface);
-      color: var(--text);
-      font-size: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 0.4rem;
+      padding: 0.4rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      display: none;
     }
 
-    select[multiple] {
-      height: 2.4rem;
+    .multi-select.open .multi-select-dropdown {
+      display: block;
+    }
+
+    .multi-select-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.5rem;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .multi-select-option:hover {
+      background: var(--hover-bg);
+    }
+
+    .multi-select-option input[type="checkbox"] {
+      flex-shrink: 0;
+    }
+
+    .selected-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.35rem;
+      min-height: 1.4rem;
+    }
+
+    .selected-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 0.25rem;
+      background: var(--accent);
+      color: #101218;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .selected-tag button {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      color: inherit;
+      font-size: 0.9rem;
+      line-height: 1;
+      cursor: pointer;
     }
 
     .checkbox-label {
@@ -116,6 +200,7 @@
       color: var(--text);
       font-size: 0.9rem;
       cursor: pointer;
+      margin-top: 1.35rem;
     }
 
     input[type="checkbox"] {
@@ -240,12 +325,20 @@
   <main>
     <div class="filters">
       <div class="filter-group">
-        <label for="filter-nuts">Supported NUTs</label>
-        <select id="filter-nuts" multiple></select>
+        <label>Supported NUTs</label>
+        <div class="multi-select" id="ms-nuts">
+          <button class="multi-select-trigger" type="button">Select NUTs…</button>
+          <div class="multi-select-dropdown"></div>
+          <div class="selected-tags"></div>
+        </div>
       </div>
       <div class="filter-group">
-        <label for="filter-units">Units</label>
-        <select id="filter-units" multiple></select>
+        <label>Units</label>
+        <div class="multi-select" id="ms-units">
+          <button class="multi-select-trigger" type="button">Select units…</button>
+          <div class="multi-select-dropdown"></div>
+          <div class="selected-tags"></div>
+        </div>
       </div>
       <div class="filter-group">
         <label class="checkbox-label">
@@ -330,10 +423,78 @@
       return Array.from(document.getElementById(id).selectedOptions).map(o => o.value);
     }
 
-    function applyFilters(table, searchValue) {
+    function createMultiSelect(containerId, options, onChange) {
+      const container = document.getElementById(containerId);
+      const trigger = container.querySelector(".multi-select-trigger");
+      const dropdown = container.querySelector(".multi-select-dropdown");
+      const tagsArea = container.querySelector(".selected-tags");
+      const selected = new Set();
+
+      function renderTags() {
+        tagsArea.innerHTML = "";
+        selected.forEach(value => {
+          const tag = document.createElement("span");
+          tag.className = "selected-tag";
+          tag.innerHTML = `${value} <button type="button" aria-label="Remove ${value}">×</button>`;
+          tag.querySelector("button").addEventListener("click", (e) => {
+            e.stopPropagation();
+            selected.delete(value);
+            container.querySelector(`input[value="${CSS.escape(value)}"]`).checked = false;
+            renderTags();
+            onChange(Array.from(selected));
+          });
+          tagsArea.appendChild(tag);
+        });
+      }
+
+      options.forEach(value => {
+        const label = document.createElement("label");
+        label.className = "multi-select-option";
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = value;
+        checkbox.addEventListener("change", () => {
+          if (checkbox.checked) selected.add(value);
+          else selected.delete(value);
+          renderTags();
+          onChange(Array.from(selected));
+        });
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(value));
+        dropdown.appendChild(label);
+      });
+
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        // Close other dropdowns.
+        document.querySelectorAll(".multi-select.open").forEach(el => {
+          if (el !== container) el.classList.remove("open");
+        });
+        container.classList.toggle("open");
+      });
+
+      // Close dropdown when clicking outside.
+      document.addEventListener("click", (e) => {
+        if (!container.contains(e.target)) container.classList.remove("open");
+      });
+
+      return {
+        getValues: () => Array.from(selected),
+        setValues: (values) => {
+          selected.clear();
+          values.forEach(v => selected.add(v));
+          container.querySelectorAll("input[type='checkbox']").forEach(cb => {
+            cb.checked = selected.has(cb.value);
+          });
+          renderTags();
+        }
+      };
+    }
+
+    function applyFilters(table, searchValue, nutsSelect, unitsSelect) {
       const filters = [staleFilter];
-      const nutFilter = buildNutsFilter(getSelectedValues("filter-nuts"));
-      const unitFilter = buildUnitsFilter(getSelectedValues("filter-units"));
+      const nutFilter = buildNutsFilter(nutsSelect.getValues());
+      const unitFilter = buildUnitsFilter(unitsSelect.getValues());
       if (nutFilter) filters.push(nutFilter);
       if (unitFilter) filters.push(unitFilter);
 
@@ -355,8 +516,6 @@
         // Collect all optional NUTs and units for filter dropdowns.
         const allNuts = Array.from(new Set(data.flatMap(m => m.nuts || []))).sort((a, b) => a - b);
         const allUnits = Array.from(new Set(data.flatMap(m => m.units || []))).sort();
-        populateSelect("filter-nuts", allNuts.map(String));
-        populateSelect("filter-units", allUnits);
 
         const table = new Tabulator("#mints-table", {
           data: data,
@@ -388,24 +547,23 @@
           ]
         });
 
+        const nutsSelect = createMultiSelect("ms-nuts", allNuts.map(String), () => {
+          applyFilters(table, document.getElementById("search").value, nutsSelect, unitsSelect);
+        });
+        const unitsSelect = createMultiSelect("ms-units", allUnits, () => {
+          applyFilters(table, document.getElementById("search").value, nutsSelect, unitsSelect);
+        });
+
         document.getElementById("search").addEventListener("input", function(e) {
-          applyFilters(table, e.target.value);
-        });
-
-        document.getElementById("filter-nuts").addEventListener("change", function() {
-          applyFilters(table, document.getElementById("search").value);
-        });
-
-        document.getElementById("filter-units").addEventListener("change", function() {
-          applyFilters(table, document.getElementById("search").value);
+          applyFilters(table, e.target.value, nutsSelect, unitsSelect);
         });
 
         document.getElementById("include-stale").addEventListener("change", function() {
-          applyFilters(table, document.getElementById("search").value);
+          applyFilters(table, document.getElementById("search").value, nutsSelect, unitsSelect);
         });
 
         // Default: hide stale/offline mints.
-        applyFilters(table, "");
+        applyFilters(table, "", nutsSelect, unitsSelect);
 
         document.getElementById("dl-csv").addEventListener("click", () => table.download("csv", "cashu-mints.csv"));
         document.getElementById("dl-json").addEventListener("click", () => table.download("json", "cashu-mints.json"));
