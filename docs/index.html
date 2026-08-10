@@ -73,6 +73,58 @@
       flex-wrap: wrap;
     }
 
+    .filters {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding: 0.75rem 1rem;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .filter-group label {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    select[multiple], select {
+      min-width: 8rem;
+      max-width: 14rem;
+      padding: 0.4rem;
+      border-radius: 0.4rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.85rem;
+    }
+
+    select[multiple] {
+      height: 2.4rem;
+    }
+
+    .checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--text);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      accent-color: var(--accent);
+      width: 1rem;
+      height: 1rem;
+      cursor: pointer;
+    }
+
     input[type="search"], button {
       padding: 0.45rem 0.7rem;
       border-radius: 0.4rem;
@@ -153,6 +205,17 @@
       background: var(--hover-bg);
     }
 
+    .unit-badge {
+      display: inline-block;
+      padding: 0.15rem 0.4rem;
+      border-radius: 0.25rem;
+      background: #2b2f38;
+      border: 1px solid var(--border);
+      font-size: 0.75rem;
+      margin-right: 0.25rem;
+      white-space: nowrap;
+    }
+
     footer {
       padding: 1rem;
       color: var(--muted);
@@ -175,6 +238,22 @@
   </header>
 
   <main>
+    <div class="filters">
+      <div class="filter-group">
+        <label for="filter-nuts">Supported NUTs</label>
+        <select id="filter-nuts" multiple></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-units">Units</label>
+        <select id="filter-units" multiple></select>
+      </div>
+      <div class="filter-group">
+        <label class="checkbox-label">
+          <input id="include-stale" type="checkbox" />
+          Include stale / offline mints
+        </label>
+      </div>
+    </div>
     <div id="mints-table"></div>
   </main>
 
@@ -205,9 +284,80 @@
       return `<code>${value}</code>`;
     }
 
-    fetch("mints.json?v=2")
+    function scoreFormatter(cell) {
+      const value = cell.getValue();
+      if (value === "" || value == null) return "";
+      const color = value >= 80 ? "#4ade80" : value >= 50 ? "#facc15" : "#f87171";
+      return `<span style="color:${color};font-weight:600">${value}</span>`;
+    }
+
+    function badgeFormatter(cell) {
+      const value = cell.getValue();
+      if (!value) return "";
+      return value.split(",").map(v => `<span class="unit-badge">${v.trim()}</span>`).join(" ");
+    }
+
+    function buildNutsFilter(values) {
+      return values.length === 0
+        ? null
+        : (rowData) => values.every(n => (rowData.nuts || []).includes(Number(n)));
+    }
+
+    function buildUnitsFilter(values) {
+      return values.length === 0
+        ? null
+        : (rowData) => values.every(u => (rowData.units || []).includes(u));
+    }
+
+    function staleFilter(rowData) {
+      const includeStale = document.getElementById("include-stale").checked;
+      if (includeStale) return true;
+      return rowData.status === "online";
+    }
+
+    function populateSelect(id, values) {
+      const select = document.getElementById(id);
+      select.innerHTML = "";
+      values.forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v;
+        opt.textContent = v;
+        select.appendChild(opt);
+      });
+    }
+
+    function getSelectedValues(id) {
+      return Array.from(document.getElementById(id).selectedOptions).map(o => o.value);
+    }
+
+    function applyFilters(table, searchValue) {
+      const filters = [staleFilter];
+      const nutFilter = buildNutsFilter(getSelectedValues("filter-nuts"));
+      const unitFilter = buildUnitsFilter(getSelectedValues("filter-units"));
+      if (nutFilter) filters.push(nutFilter);
+      if (unitFilter) filters.push(unitFilter);
+
+      if (searchValue && searchValue.trim() !== "") {
+        const term = searchValue.trim().toLowerCase();
+        filters.push(row =>
+          (row.name || "").toLowerCase().includes(term) ||
+          (row.url || "").toLowerCase().includes(term) ||
+          (row.implementation || "").toLowerCase().includes(term)
+        );
+      }
+
+      table.setFilter(filters);
+    }
+
+    fetch("mints.json?v=3")
       .then(r => r.json())
       .then(data => {
+        // Collect all optional NUTs and units for filter dropdowns.
+        const allNuts = Array.from(new Set(data.flatMap(m => m.nuts || []))).sort((a, b) => a - b);
+        const allUnits = Array.from(new Set(data.flatMap(m => m.units || []))).sort();
+        populateSelect("filter-nuts", allNuts.map(String));
+        populateSelect("filter-units", allUnits);
+
         const table = new Tabulator("#mints-table", {
           data: data,
           layout: "fitColumns",
@@ -218,31 +368,44 @@
           paginationSize: 100,
           paginationSizeSelector: [25, 50, 100, true],
           initialSort: [
+            { column: "stale_score", dir: "desc" },
             { column: "implementation", dir: "asc" },
             { column: "version", dir: "desc" }
           ],
           columns: [
-            { title: "Name", field: "name", sorter: "string", widthGrow: 1.5, headerFilter: "input" },
-            { title: "URL", field: "url", formatter: linkFormatter, sorter: "string", widthGrow: 2, headerFilter: "input" },
-            { title: "Implementation", field: "implementation", sorter: "string", headerFilter: "input" },
-            { title: "Version", field: "version", sorter: semverSorter, headerFilter: "input" },
-            { title: "NUTs", field: "nuts", sorter: "number", width: 80, hozAlign: "center" },
-            { title: "Email", field: "email", sorter: "string", widthGrow: 1, headerFilter: "input" },
-            { title: "X / Twitter", field: "x", sorter: "string", widthGrow: 0.8, headerFilter: "input" },
-            { title: "Nostr", field: "nostr", formatter: monoFormatter, sorter: "string", widthGrow: 1.2, headerFilter: "input" },
-            { title: "Other Contact", field: "other_contact", sorter: "string", widthGrow: 1, headerFilter: "input" }
+            { title: "Name", field: "name", sorter: "string", widthGrow: 1.5 },
+            { title: "URL", field: "url", formatter: linkFormatter, sorter: "string", widthGrow: 2 },
+            { title: "Implementation", field: "implementation", sorter: "string" },
+            { title: "Version", field: "version", sorter: semverSorter },
+            { title: "NUTs", field: "nuts_display", sorter: "string", widthGrow: 1 },
+            { title: "Units", field: "units_display", formatter: badgeFormatter, sorter: "string", widthGrow: 0.8 },
+            { title: "Freshness", field: "stale_score", formatter: scoreFormatter, sorter: "number", hozAlign: "center", width: 90 },
+            { title: "Status", field: "status", sorter: "string", hozAlign: "center", width: 90 },
+            { title: "Email", field: "email", sorter: "string", widthGrow: 1 },
+            { title: "X / Twitter", field: "x", sorter: "string", widthGrow: 0.8 },
+            { title: "Nostr", field: "nostr", formatter: monoFormatter, sorter: "string", widthGrow: 1.2 },
+            { title: "Other Contact", field: "other_contact", sorter: "string", widthGrow: 1 }
           ]
         });
 
         document.getElementById("search").addEventListener("input", function(e) {
-          table.setFilter([
-            [
-              { field: "name", type: "like", value: e.target.value },
-              { field: "url", type: "like", value: e.target.value },
-              { field: "implementation", type: "like", value: e.target.value }
-            ]
-          ]);
+          applyFilters(table, e.target.value);
         });
+
+        document.getElementById("filter-nuts").addEventListener("change", function() {
+          applyFilters(table, document.getElementById("search").value);
+        });
+
+        document.getElementById("filter-units").addEventListener("change", function() {
+          applyFilters(table, document.getElementById("search").value);
+        });
+
+        document.getElementById("include-stale").addEventListener("change", function() {
+          applyFilters(table, document.getElementById("search").value);
+        });
+
+        // Default: hide stale/offline mints.
+        applyFilters(table, "");
 
         document.getElementById("dl-csv").addEventListener("click", () => table.download("csv", "cashu-mints.csv"));
         document.getElementById("dl-json").addEventListener("click", () => table.download("json", "cashu-mints.json"));
