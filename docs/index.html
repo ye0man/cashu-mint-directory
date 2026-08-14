@@ -301,6 +301,14 @@
       white-space: nowrap;
     }
 
+    .mint-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
     footer {
       padding: 1rem;
       color: var(--muted);
@@ -375,6 +383,24 @@
       const value = cell.getValue();
       if (!value) return "";
       return `<code>${value}</code>`;
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
+    }
+
+    function logoFormatter(cell) {
+      const row = cell.getRow().getData();
+      const url = cell.getValue() || "cashu_liquid.jpg";
+      const tooltip = escapeHtml(row.description || "");
+      return `<img class="mint-logo" src="${escapeHtml(url)}" alt="" title="${tooltip}" onerror="this.src='cashu_liquid.jpg'; this.onerror=null;">`;
+    }
+
+    function nameFormatter(cell) {
+      const row = cell.getRow().getData();
+      const name = escapeHtml(cell.getValue());
+      const tooltip = escapeHtml(row.description_long || row.description || "");
+      return `<span title="${tooltip}">${name}</span>`;
     }
 
     function scoreFormatter(cell) {
@@ -532,7 +558,8 @@
             { column: "version", dir: "desc" }
           ],
           columns: [
-            { title: "Name", field: "name", sorter: "string", widthGrow: 1.5 },
+            { title: "", field: "icon_url", formatter: logoFormatter, headerSort: false, hozAlign: "center", width: 50 },
+            { title: "Name", field: "name", formatter: nameFormatter, sorter: "string", widthGrow: 1.5 },
             { title: "URL", field: "url", formatter: linkFormatter, sorter: "string", widthGrow: 2 },
             { title: "Implementation", field: "implementation", sorter: "string" },
             { title: "Version", field: "version", sorter: semverSorter },

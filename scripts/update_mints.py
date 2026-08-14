@@ -313,6 +313,9 @@ def probe_mint(url: str) -> dict[str, Any]:
         record["x"] = ""
         record["nostr"] = ""
         record["other_contact"] = ""
+        record["icon_url"] = ""
+        record["description"] = ""
+        record["description_long"] = ""
         record["stale_score"] = 0
         record["stale_reasons"] = ["offline"]
         return record
@@ -338,6 +341,9 @@ def probe_mint(url: str) -> dict[str, Any]:
             "x": contact["x"],
             "nostr": contact["nostr"],
             "other_contact": contact["other_contact"],
+            "icon_url": str(info.get("icon_url") or "").strip(),
+            "description": str(info.get("description") or "").strip(),
+            "description_long": str(info.get("description_long") or "").strip(),
             "stale_reasons": parse_reasons,
         }
     )
@@ -373,14 +379,14 @@ def merge_with_existing(
             probed["nuts"] = list(range(7, 7 + old_nuts)) if old_nuts else []
         elif isinstance(old_nuts, list):
             probed["nuts"] = old_nuts
-        # Keep contact info too.
-        for key in ("email", "x", "nostr", "other_contact"):
+        # Keep contact and presentation info too.
+        for key in ("email", "x", "nostr", "other_contact", "icon_url", "description", "description_long"):
             if old.get(key):
                 probed[key] = old[key]
         return probed
 
-    # Online: only backfill empty contact fields from the existing record.
-    for key in ("email", "x", "nostr", "other_contact"):
+    # Online: backfill empty contact and presentation fields from the existing record.
+    for key in ("email", "x", "nostr", "other_contact", "icon_url", "description", "description_long"):
         if not probed.get(key) and old.get(key):
             probed[key] = old[key]
 
