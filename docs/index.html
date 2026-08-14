@@ -573,8 +573,7 @@
 
         const table = new Tabulator("#mints-table", {
           data: data,
-          layout: "fitDataStretch",
-          responsiveLayout: "hide",
+          layout: "fitColumns",
           resizableColumns: true,
           movableColumns: true,
           pagination: true,
@@ -587,19 +586,19 @@
           ],
           columns: [
             { title: "", field: "icon_url", formatter: logoFormatter, headerSort: false, hozAlign: "center", width: 50 },
-            { title: "Mint", field: "name", formatter: mintFormatter, sorter: "string" },
-            { title: "Type", field: "implementation", sorter: "string" },
-            { title: "Version", field: "version", sorter: semverSorter },
-            { title: "Units", field: "units_display", formatter: badgeFormatter, sorter: "string" },
-            { title: "Mint methods", field: "mint_methods_display", formatter: methodListFormatter, formatterParams: { disabledField: "nut4_disabled" }, sorter: "string", minWidth: 200 },
-            { title: "Melt methods", field: "melt_methods_display", formatter: methodListFormatter, formatterParams: { disabledField: "nut5_disabled" }, sorter: "string", minWidth: 200 },
+            { title: "Mint", field: "name", formatter: mintFormatter, sorter: "string", widthGrow: 1.5 },
+            { title: "Type", field: "implementation", sorter: "string", widthGrow: 1 },
+            { title: "Version", field: "version", sorter: semverSorter, widthGrow: 0.8 },
+            { title: "Units", field: "units_display", formatter: badgeFormatter, sorter: "string", widthGrow: 0.6 },
+            { title: "Mint methods", field: "mint_methods_display", formatter: methodListFormatter, formatterParams: { disabledField: "nut4_disabled" }, sorter: "string", widthGrow: 0.8, minWidth: 200 },
+            { title: "Melt methods", field: "melt_methods_display", formatter: methodListFormatter, formatterParams: { disabledField: "nut5_disabled" }, sorter: "string", widthGrow: 0.8, minWidth: 200 },
             { title: "Freshness", field: "stale_score", formatter: scoreFormatter, sorter: "number", hozAlign: "center", width: 90 },
             { title: "Status", field: "status", sorter: "string", hozAlign: "center", width: 90 },
-            { title: "Email", field: "email", sorter: "string" },
-            { title: "X / Twitter", field: "x", sorter: "string" },
-            { title: "Nostr", field: "nostr", formatter: monoFormatter, sorter: "string" },
-            { title: "Other Contact", field: "other_contact", sorter: "string" },
-            { title: "NUTs", field: "nuts_display", sorter: "string", maxWidth: 180 }
+            { title: "Email", field: "email", sorter: "string", widthGrow: 1.2 },
+            { title: "X / Twitter", field: "x", sorter: "string", widthGrow: 1 },
+            { title: "Nostr", field: "nostr", formatter: monoFormatter, sorter: "string", widthGrow: 1.4 },
+            { title: "Other Contact", field: "other_contact", sorter: "string", widthGrow: 1.2 },
+            { title: "NUTs", field: "nuts_display", sorter: "string", widthGrow: 0.6, maxWidth: 180 }
           ]
         });
 
