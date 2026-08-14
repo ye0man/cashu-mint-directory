@@ -442,22 +442,32 @@
       return badges;
     }
 
-    function buildNutsFilter(values) {
-      return values.length === 0
-        ? null
-        : (rowData) => values.every(n => (rowData.nuts || []).includes(Number(n)));
-    }
+    function makeRowFilter(searchValue, nutValues, unitValues, includeStale) {
+      return (rowData) => {
+        if (!includeStale && rowData.status !== "online") return false;
 
-    function buildUnitsFilter(values) {
-      return values.length === 0
-        ? null
-        : (rowData) => values.every(u => (rowData.units || []).includes(u));
-    }
+        if (nutValues.length) {
+          const nuts = rowData.nuts || [];
+          if (!nutValues.every(n => nuts.includes(Number(n)))) return false;
+        }
 
-    function staleFilter(rowData) {
-      const includeStale = document.getElementById("include-stale").checked;
-      if (includeStale) return true;
-      return rowData.status === "online";
+        if (unitValues.length) {
+          const units = rowData.units || [];
+          if (!unitValues.some(u => units.includes(u))) return false;
+        }
+
+        if (searchValue && searchValue.trim() !== "") {
+          const term = searchValue.trim().toLowerCase();
+          const text = [
+            rowData.name || "",
+            rowData.url || "",
+            rowData.implementation || ""
+          ].join(" ").toLowerCase();
+          if (!text.includes(term)) return false;
+        }
+
+        return true;
+      };
     }
 
     function populateSelect(id, values) {
@@ -544,25 +554,19 @@
     }
 
     function applyFilters(table, searchValue, nutsSelect, unitsSelect) {
-      const filters = [staleFilter];
-      const nutFilter = buildNutsFilter(nutsSelect.getValues());
-      const unitFilter = buildUnitsFilter(unitsSelect.getValues());
-      if (nutFilter) filters.push(nutFilter);
-      if (unitFilter) filters.push(unitFilter);
+      const includeStale = document.getElementById("include-stale").checked;
+      const nutValues = nutsSelect.getValues();
+      const unitValues = unitsSelect.getValues();
+      const searchActive = searchValue && searchValue.trim() !== "";
 
-      if (searchValue && searchValue.trim() !== "") {
-        const term = searchValue.trim().toLowerCase();
-        filters.push(row =>
-          (row.name || "").toLowerCase().includes(term) ||
-          (row.url || "").toLowerCase().includes(term) ||
-          (row.implementation || "").toLowerCase().includes(term)
-        );
+      if (includeStale && !nutValues.length && !unitValues.length && !searchActive) {
+        table.clearFilter();
+      } else {
+        table.setFilter(makeRowFilter(searchValue, nutValues, unitValues, includeStale));
       }
-
-      table.setFilter(filters);
     }
 
-    fetch("mints.json?v=3")
+    fetch("mints.json?v=4")
       .then(r => r.json())
       .then(data => {
         // Collect all optional NUTs and units for filter dropdowns.
