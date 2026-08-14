@@ -175,20 +175,30 @@ def normalize_unit(unit: str | None) -> str | None:
     return UNIT_ALIASES.get(key, key)
 
 
-def parse_nuts(nuts_obj: dict[str, Any] | None) -> tuple[list[int], list[str], list[str]]:
+def parse_nuts(
+    nuts_obj: dict[str, Any] | None,
+) -> tuple[list[int], list[str], list[str], list[str], list[str], bool, bool]:
     """
     From the /v1/info 'nuts' object return:
       - optional_nuts: sorted list of supported optional NUT numbers
       - all_units: deduplicated list of supported units (from NUT-04/05 methods)
       - stale_reasons: list of reasons discovered while parsing
+      - mint_methods: deduplicated "method (unit)" strings for NUT-04
+      - melt_methods: deduplicated "method (unit)" strings for NUT-05
+      - nut4_disabled: whether NUT-04 minting is disabled
+      - nut5_disabled: whether NUT-05 melting is disabled
     """
     optional_nuts: list[int] = []
     units: list[str] = []
     stale_reasons: list[str] = []
+    mint_methods: list[str] = []
+    melt_methods: list[str] = []
+    nut4_disabled = False
+    nut5_disabled = False
 
     if not isinstance(nuts_obj, dict):
         stale_reasons.append("missing_nuts_field")
-        return optional_nuts, units, stale_reasons
+        return optional_nuts, units, stale_reasons, mint_methods, melt_methods, nut4_disabled, nut5_disabled
 
     for raw_key, value in nuts_obj.items():
         try:
@@ -200,16 +210,35 @@ def parse_nuts(nuts_obj: dict[str, Any] | None) -> tuple[list[int], list[str], l
 
         supported = value.get("supported", True)
         disabled = value.get("disabled", False)
+
+        # Always capture method-unit pairs for NUT-04/05 so we can display them
+        # even when minting/melting is disabled (with a strikethrough).
+        if nut_num == 4:
+            nut4_disabled = bool(disabled)
+            for method in value.get("methods") or []:
+                if isinstance(method, dict):
+                    m_name = str(method.get("method") or "").strip()
+                    unit = normalize_unit(method.get("unit"))
+                    if m_name and unit:
+                        mint_methods.append(f"{m_name} ({unit})")
+        elif nut_num == 5:
+            nut5_disabled = bool(disabled)
+            for method in value.get("methods") or []:
+                if isinstance(method, dict):
+                    m_name = str(method.get("method") or "").strip()
+                    unit = normalize_unit(method.get("unit"))
+                    if m_name and unit:
+                        melt_methods.append(f"{m_name} ({unit})")
+
         if not supported or disabled:
             continue
 
         if nut_num not in MANDATORY_NUTS:
             optional_nuts.append(nut_num)
 
-        # Extract units from mint/melt methods.
+        # Extract units from mint/melt methods only when enabled.
         if nut_num in (4, 5):
-            methods = value.get("methods") or []
-            for method in methods:
+            for method in value.get("methods") or []:
                 unit = normalize_unit(method.get("unit"))
                 if unit:
                     units.append(unit)
@@ -218,7 +247,15 @@ def parse_nuts(nuts_obj: dict[str, Any] | None) -> tuple[list[int], list[str], l
     if not units:
         stale_reasons.append("no_units_discovered")
 
-    return sorted(set(optional_nuts)), sorted(set(units)), stale_reasons
+    return (
+        sorted(set(optional_nuts)),
+        sorted(set(units)),
+        stale_reasons,
+        sorted(set(mint_methods)),
+        sorted(set(melt_methods)),
+        nut4_disabled,
+        nut5_disabled,
+    )
 
 
 def parse_contact(contact_list: list[dict[str, Any]] | None) -> dict[str, str]:
@@ -316,6 +353,10 @@ def probe_mint(url: str) -> dict[str, Any]:
         record["icon_url"] = ""
         record["description"] = ""
         record["description_long"] = ""
+        record["mint_methods"] = []
+        record["melt_methods"] = []
+        record["nut4_disabled"] = False
+        record["nut5_disabled"] = False
         record["stale_score"] = 0
         record["stale_reasons"] = ["offline"]
         return record
@@ -327,7 +368,15 @@ def probe_mint(url: str) -> dict[str, Any]:
         impl = "Unknown"
 
     name = str(info.get("name") or "").strip().strip('"').strip("'") or hostname_from_url(url)
-    optional_nuts, units, parse_reasons = parse_nuts(info.get("nuts"))
+    (
+        optional_nuts,
+        units,
+        parse_reasons,
+        mint_methods,
+        melt_methods,
+        nut4_disabled,
+        nut5_disabled,
+    ) = parse_nuts(info.get("nuts"))
     contact = parse_contact(info.get("contact"))
 
     record.update(
@@ -344,6 +393,10 @@ def probe_mint(url: str) -> dict[str, Any]:
             "icon_url": str(info.get("icon_url") or "").strip(),
             "description": str(info.get("description") or "").strip(),
             "description_long": str(info.get("description_long") or "").strip(),
+            "mint_methods": mint_methods,
+            "melt_methods": melt_methods,
+            "nut4_disabled": nut4_disabled,
+            "nut5_disabled": nut5_disabled,
             "stale_reasons": parse_reasons,
         }
     )
@@ -380,13 +433,13 @@ def merge_with_existing(
         elif isinstance(old_nuts, list):
             probed["nuts"] = old_nuts
         # Keep contact and presentation info too.
-        for key in ("email", "x", "nostr", "other_contact", "icon_url", "description", "description_long"):
+        for key in ("email", "x", "nostr", "other_contact", "icon_url", "description", "description_long", "mint_methods", "melt_methods", "nut4_disabled", "nut5_disabled"):
             if old.get(key):
                 probed[key] = old[key]
         return probed
 
     # Online: backfill empty contact and presentation fields from the existing record.
-    for key in ("email", "x", "nostr", "other_contact", "icon_url", "description", "description_long"):
+    for key in ("email", "x", "nostr", "other_contact", "icon_url", "description", "description_long", "mint_methods", "melt_methods", "nut4_disabled", "nut5_disabled"):
         if not probed.get(key) and old.get(key):
             probed[key] = old[key]
 
@@ -509,6 +562,8 @@ def add_display_fields(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for r in records:
         r["nuts_display"] = ",".join(str(n) for n in r.get("nuts", []))
         r["units_display"] = ",".join(r.get("units", []))
+        r["mint_methods_display"] = ",".join(r.get("mint_methods", []))
+        r["melt_methods_display"] = ",".join(r.get("melt_methods", []))
     return records
 
 

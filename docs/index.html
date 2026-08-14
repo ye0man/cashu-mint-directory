@@ -309,6 +309,17 @@
       display: block;
     }
 
+    .disabled-method {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .disabled-badge {
+      background: #5c2b2b;
+      color: #ff9e9e;
+      border-color: #8a3b3b;
+    }
+
     footer {
       padding: 1rem;
       color: var(--muted);
@@ -414,6 +425,21 @@
       const value = cell.getValue();
       if (!value) return "";
       return value.split(",").map(v => `<span class="unit-badge">${v.trim()}</span>`).join(" ");
+    }
+
+    function methodListFormatter(cell, formatterParams) {
+      const row = cell.getRow().getData();
+      const value = cell.getValue();
+      const disabled = formatterParams && formatterParams.disabledField && row[formatterParams.disabledField];
+      if (!value) {
+        return disabled ? '<span class="unit-badge disabled-badge">disabled</span>' : "";
+      }
+      const badgeClass = disabled ? "unit-badge disabled-method" : "unit-badge";
+      let badges = value.split(",").map(v => `<span class="${badgeClass}">${escapeHtml(v.trim())}</span>`).join(" ");
+      if (disabled) {
+        badges += ' <span class="unit-badge disabled-badge">disabled</span>';
+      }
+      return badges;
     }
 
     function buildNutsFilter(values) {
@@ -565,6 +591,8 @@
             { title: "Version", field: "version", sorter: semverSorter },
             { title: "NUTs", field: "nuts_display", sorter: "string", widthGrow: 1 },
             { title: "Units", field: "units_display", formatter: badgeFormatter, sorter: "string", widthGrow: 0.8 },
+            { title: "Mint methods", field: "mint_methods_display", formatter: methodListFormatter, formatterParams: { disabledField: "nut4_disabled" }, sorter: "string", widthGrow: 1 },
+            { title: "Melt methods", field: "melt_methods_display", formatter: methodListFormatter, formatterParams: { disabledField: "nut5_disabled" }, sorter: "string", widthGrow: 1 },
             { title: "Freshness", field: "stale_score", formatter: scoreFormatter, sorter: "number", hozAlign: "center", width: 90 },
             { title: "Status", field: "status", sorter: "string", hozAlign: "center", width: 90 },
             { title: "Email", field: "email", sorter: "string", widthGrow: 1 },
