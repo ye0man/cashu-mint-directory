@@ -100,8 +100,8 @@
 
     .multi-select {
       position: relative;
-      min-width: 12rem;
-      max-width: 18rem;
+      min-width: 14rem;
+      max-width: 20rem;
     }
 
     .multi-select-trigger {
@@ -111,12 +111,16 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .multi-select-trigger::after {
       content: "▼";
       font-size: 0.65rem;
       color: var(--muted);
+      flex-shrink: 0;
     }
 
     .multi-select.open .multi-select-trigger::after {
@@ -129,6 +133,8 @@
       left: 0;
       z-index: 100;
       min-width: 100%;
+      width: max-content;
+      max-width: 28rem;
       max-height: 18rem;
       overflow-y: auto;
       background: var(--surface);
@@ -416,15 +422,43 @@
       return String(a).localeCompare(String(b));
     }
 
-    function monoFormatter(cell) {
-      const value = cell.getValue();
-      if (!value) return "";
-      return `<code>${value}</code>`;
-    }
-
     function escapeHtml(str) {
       return String(str ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
     }
+
+    const NUT_DESCRIPTIONS = {
+      0: "Cryptography and Models",
+      1: "Mint public keys",
+      2: "Keysets and fees",
+      3: "Swapping tokens",
+      4: "Minting tokens",
+      5: "Melting tokens",
+      6: "Mint info",
+      7: "Token state check",
+      8: "Overpaid Lightning fees",
+      9: "Signature restore",
+      10: "Spending conditions",
+      11: "Pay-To-Pubkey (P2PK)",
+      12: "DLEQ proofs",
+      13: "Deterministic secrets",
+      14: "Hashed Timelock Contracts (HTLCs)",
+      15: "Partial multi-path payments (MPP)",
+      16: "Animated QR codes",
+      17: "WebSocket subscriptions",
+      18: "Payment requests",
+      19: "Cached Responses",
+      20: "Signature on Mint Quote",
+      21: "Clear authentication",
+      22: "Blind authentication",
+      23: "Payment Method: BOLT11",
+      24: "HTTP 402 Payment Required",
+      25: "Payment Method: BOLT12",
+      26: "Payment Request Bech32m Encoding",
+      27: "Nostr Mint Backup",
+      28: "Pay to Blinded Key (P2BK)",
+      29: "Batched Mint",
+      30: "Payment Method: Onchain"
+    };
 
     function logoFormatter(cell) {
       const row = cell.getRow().getData();
@@ -584,21 +618,6 @@
       };
     }
 
-    function populateSelect(id, values) {
-      const select = document.getElementById(id);
-      select.innerHTML = "";
-      values.forEach(v => {
-        const opt = document.createElement("option");
-        opt.value = v;
-        opt.textContent = v;
-        select.appendChild(opt);
-      });
-    }
-
-    function getSelectedValues(id) {
-      return Array.from(document.getElementById(id).selectedOptions).map(o => o.value);
-    }
-
     function createMultiSelect(containerId, options, onChange) {
       const container = document.getElementById(containerId);
       const trigger = container.querySelector(".multi-select-trigger");
@@ -606,16 +625,27 @@
       const tagsArea = container.querySelector(".selected-tags");
       const selected = new Set();
 
+      // Normalize options to {value, label} objects.
+      const normalizedOptions = options.map(opt => {
+        if (opt && typeof opt === "object" && "value" in opt) {
+          return { value: String(opt.value), label: opt.label };
+        }
+        return { value: String(opt), label: String(opt) };
+      });
+      const labelByValue = new Map(normalizedOptions.map(o => [o.value, o.label]));
+
       function renderTags() {
         tagsArea.innerHTML = "";
         selected.forEach(value => {
+          const label = labelByValue.get(value) || value;
           const tag = document.createElement("span");
           tag.className = "selected-tag";
-          tag.innerHTML = `${value} <button type="button" aria-label="Remove ${value}">×</button>`;
+          tag.innerHTML = `${escapeHtml(label)} <button type="button" aria-label="Remove ${escapeHtml(label)}">×</button>`;
           tag.querySelector("button").addEventListener("click", (e) => {
             e.stopPropagation();
             selected.delete(value);
-            container.querySelector(`input[value="${CSS.escape(value)}"]`).checked = false;
+            const cb = container.querySelector(`input[value="${CSS.escape(value)}"]`);
+            if (cb) cb.checked = false;
             renderTags();
             onChange(Array.from(selected));
           });
@@ -623,20 +653,20 @@
         });
       }
 
-      options.forEach(value => {
+      normalizedOptions.forEach(opt => {
         const label = document.createElement("label");
         label.className = "multi-select-option";
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        checkbox.value = value;
+        checkbox.value = opt.value;
         checkbox.addEventListener("change", () => {
-          if (checkbox.checked) selected.add(value);
-          else selected.delete(value);
+          if (checkbox.checked) selected.add(opt.value);
+          else selected.delete(opt.value);
           renderTags();
           onChange(Array.from(selected));
         });
         label.appendChild(checkbox);
-        label.appendChild(document.createTextNode(value));
+        label.appendChild(document.createTextNode(opt.label));
         dropdown.appendChild(label);
       });
 
@@ -658,7 +688,7 @@
         getValues: () => Array.from(selected),
         setValues: (values) => {
           selected.clear();
-          values.forEach(v => selected.add(v));
+          values.forEach(v => selected.add(String(v)));
           container.querySelectorAll("input[type='checkbox']").forEach(cb => {
             cb.checked = selected.has(cb.value);
           });
@@ -710,12 +740,16 @@
             { title: "Melt methods", field: "melt_methods", formatter: methodsFormatter, formatterParams: { disabledField: "nut5_disabled" }, sorter: "string", widthGrow: 0.8, minWidth: 160 },
             { title: "Freshness", field: "stale_score", formatter: scoreFormatter, sorter: "number", hozAlign: "center", width: 90 },
             { title: "Status", field: "status", sorter: "string", hozAlign: "center", width: 90 },
-            { title: "Contact", field: "email", formatter: contactFormatter, sorter: "string", widthGrow: 1.2 },
-            { title: "NUTs", field: "nuts_display", sorter: "string", widthGrow: 0.6, maxWidth: 180 }
+            { title: "Contact", field: "email", formatter: contactFormatter, sorter: "string", widthGrow: 1.2 }
           ]
         });
 
-        const nutsSelect = createMultiSelect("ms-nuts", allNuts.map(String), () => {
+        const nutOptions = allNuts.map(n => {
+          const num = String(n);
+          const desc = NUT_DESCRIPTIONS[n] || "";
+          return { value: num, label: desc ? `${num}: ${desc}` : num };
+        });
+        const nutsSelect = createMultiSelect("ms-nuts", nutOptions, () => {
           applyFilters(table, document.getElementById("search").value, nutsSelect, unitsSelect);
         });
         const unitsSelect = createMultiSelect("ms-units", allUnits, () => {
