@@ -301,6 +301,38 @@
       white-space: nowrap;
     }
 
+    .unit-badge-btc {
+      background: rgba(247, 147, 26, 0.15);
+      color: #ffb347;
+      border-color: #f7931a;
+    }
+
+    .unit-badge-usd {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border-color: #22c55e;
+    }
+
+    .unit-badge-eur {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border-color: #3b82f6;
+    }
+
+    .methods-cell {
+      white-space: normal;
+      line-height: 1.6;
+    }
+
+    .method-name {
+      cursor: help;
+      border-bottom: 1px dashed var(--muted);
+    }
+
+    .contact-cell a {
+      margin: 0 0.15rem;
+    }
+
     .mint-logo {
       width: 28px;
       height: 28px;
@@ -416,28 +448,112 @@
       return `<span style="color:${color};font-weight:600">${value}</span>`;
     }
 
+    function unitBadgeClass(unit) {
+      const u = unit.toLowerCase();
+      if (u === "sat" || u === "msat") return "unit-badge-btc";
+      if (u === "usd") return "unit-badge-usd";
+      if (u === "eur" || u === "euro") return "unit-badge-eur";
+      return "";
+    }
+
     function badgeFormatter(cell) {
       const value = cell.getValue();
       if (!value) return "";
-      return value.split(",").map(v => `<span class="unit-badge">${v.trim()}</span>`).join(" ");
+      return value.split(",").map(v => {
+        const unit = v.trim();
+        const cls = unitBadgeClass(unit);
+        return `<span class="unit-badge ${cls}">${escapeHtml(unit)}</span>`;
+      }).join(" ");
     }
 
-    function methodListFormatter(cell, formatterParams) {
+    function capitalizeFirst(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function methodsFormatter(cell, formatterParams) {
       const row = cell.getRow().getData();
-      const value = cell.getValue();
+      const methods = cell.getValue() || [];
       const disabled = formatterParams && formatterParams.disabledField && row[formatterParams.disabledField];
-      if (!value) {
+      if (!methods.length) {
         return disabled ? '<span class="unit-badge disabled-badge">disabled</span>' : "";
       }
-      const methods = value.split(",").map(v => v.trim());
-      const visible = methods.slice(0, 2);
-      const badgeClass = disabled ? "unit-badge disabled-method" : "unit-badge";
-      let badges = visible.map(v => `<span class="${badgeClass}">${escapeHtml(v)}</span>`).join(" ");
+      const methodClass = disabled ? "method-name disabled-method" : "method-name";
+      const parts = methods.map(m => {
+        const name = capitalizeFirst(String(m.method || ""));
+        const units = (m.units || []).join(", ");
+        return `<span class="${methodClass}" title="${escapeHtml(units)}">${escapeHtml(name)}</span>`;
+      });
+      let html = parts.join(", ");
       if (disabled) {
-        badges += ' <span class="unit-badge disabled-badge">disabled</span>';
+        html += ' <span class="unit-badge disabled-badge">disabled</span>';
       }
-      const fullList = escapeHtml(methods.join(", "));
-      return `<span title="${fullList}">${badges}</span>`;
+      return `<span class="methods-cell">${html}</span>`;
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email));
+    }
+
+    function isValidNostr(key) {
+      return /^npub1[ac-hj-np-z02-9]{58}$/.test(String(key));
+    }
+
+    function otherContactUrl(method, info) {
+      const m = String(method).toLowerCase();
+      const i = String(info).trim();
+      if (m === "telegram") return `https://t.me/${encodeURIComponent(i.replace(/^@/, ""))}`;
+      if (m === "github") return `https://github.com/${encodeURIComponent(i.replace(/^@/, ""))}`;
+      if (m === "matrix") return `https://matrix.to/#/${encodeURIComponent(i)}`;
+      if (m === "website" || m === "url" || m === "web") return i.startsWith("http") ? i : `https://${i}`;
+      return null;
+    }
+
+    function contactFormatter(cell) {
+      const row = cell.getRow().getData();
+      const links = [];
+
+      if (row.email && isValidEmail(row.email)) {
+        links.push(`<a href="mailto:${escapeHtml(row.email)}" target="_blank" rel="noopener">Email</a>`);
+      }
+
+      if (row.x) {
+        const handle = String(row.x).trim();
+        let url;
+        if (/^https?:\/\/(twitter|x)\.com\//i.test(handle)) {
+          url = handle;
+        } else {
+          url = `https://x.com/${encodeURIComponent(handle.replace(/^@/, ""))}`;
+        }
+        links.push(`<a href="${url}" target="_blank" rel="noopener">X</a>`);
+      }
+
+      if (row.nostr && isValidNostr(row.nostr)) {
+        links.push(`<a href="https://njump.me/${escapeHtml(row.nostr)}" target="_blank" rel="noopener">Nostr</a>`);
+      }
+
+      if (row.other_contact) {
+        const segments = String(row.other_contact).split(";").map(s => s.trim()).filter(Boolean);
+        let fallbackIndex = 1;
+        segments.forEach(segment => {
+          const colonIdx = segment.indexOf(":");
+          if (colonIdx > 0) {
+            const method = segment.slice(0, colonIdx).trim();
+            const info = segment.slice(colonIdx + 1).trim();
+            const url = otherContactUrl(method, info);
+            if (url) {
+              const label = escapeHtml(capitalizeFirst(method));
+              links.push(`<a href="${url}" target="_blank" rel="noopener">${label}</a>`);
+            } else {
+              links.push(`<span title="${escapeHtml(segment)}">Misc${fallbackIndex++}</span>`);
+            }
+          } else {
+            links.push(`<span title="${escapeHtml(segment)}">Misc${fallbackIndex++}</span>`);
+          }
+        });
+      }
+
+      if (!links.length) return "";
+      return `<span class="contact-cell">${links.join(" | ")}</span>`;
     }
 
     function makeRowFilter(searchValue, nutValues, unitValues, includeStale) {
@@ -590,14 +706,11 @@
             { title: "Type", field: "implementation", sorter: "string", widthGrow: 1 },
             { title: "Version", field: "version", sorter: semverSorter, widthGrow: 0.8 },
             { title: "Units", field: "units_display", formatter: badgeFormatter, sorter: "string", widthGrow: 0.6 },
-            { title: "Mint methods", field: "mint_methods_display", formatter: methodListFormatter, formatterParams: { disabledField: "nut4_disabled" }, sorter: "string", widthGrow: 0.8, minWidth: 200 },
-            { title: "Melt methods", field: "melt_methods_display", formatter: methodListFormatter, formatterParams: { disabledField: "nut5_disabled" }, sorter: "string", widthGrow: 0.8, minWidth: 200 },
+            { title: "Mint methods", field: "mint_methods", formatter: methodsFormatter, formatterParams: { disabledField: "nut4_disabled" }, sorter: "string", widthGrow: 0.8, minWidth: 160 },
+            { title: "Melt methods", field: "melt_methods", formatter: methodsFormatter, formatterParams: { disabledField: "nut5_disabled" }, sorter: "string", widthGrow: 0.8, minWidth: 160 },
             { title: "Freshness", field: "stale_score", formatter: scoreFormatter, sorter: "number", hozAlign: "center", width: 90 },
             { title: "Status", field: "status", sorter: "string", hozAlign: "center", width: 90 },
-            { title: "Email", field: "email", sorter: "string", widthGrow: 1.2 },
-            { title: "X / Twitter", field: "x", sorter: "string", widthGrow: 1 },
-            { title: "Nostr", field: "nostr", formatter: monoFormatter, sorter: "string", widthGrow: 1.4 },
-            { title: "Other Contact", field: "other_contact", sorter: "string", widthGrow: 1.2 },
+            { title: "Contact", field: "email", formatter: contactFormatter, sorter: "string", widthGrow: 1.2 },
             { title: "NUTs", field: "nuts_display", sorter: "string", widthGrow: 0.6, maxWidth: 180 }
           ]
         });

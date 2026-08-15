@@ -25,7 +25,8 @@ Each mint record includes:
 - `stale_reasons`: signals that lowered the score
 - `status`: `online` or `offline`
 - `last_seen`: ISO timestamp of the last successful probe
-- contact fields: `email`, `x`, `nostr`, `other_contact`
+- `mint_methods`, `melt_methods`: arrays of structured method objects, e.g. `[{"method": "bolt11", "units": ["sat", "usd"]}]`. The table renders each method once and shows its supported units on hover.
+- contact fields: `email`, `x`, `nostr`, `other_contact` (rendered in the table as a single **Contact** column with hyperlinks)
 
 ## Freshness scoring
 

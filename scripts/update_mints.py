@@ -175,24 +175,59 @@ def normalize_unit(unit: str | None) -> str | None:
     return UNIT_ALIASES.get(key, key)
 
 
+def _parse_legacy_method(value: str) -> tuple[str, list[str]]:
+    """Parse legacy 'method (unit)' strings into (method, [unit])."""
+    match = re.match(r"^(.+?)\s*\(([^)]+)\)$", value.strip())
+    if match:
+        return match.group(1).strip(), [match.group(2).strip()]
+    return value.strip(), []
+
+
+def normalize_methods(methods: Any) -> list[dict[str, Any]]:
+    """
+    Convert legacy 'method (unit)' strings or partial structured dicts into
+    the canonical format: [{'method': str, 'units': [str, ...]}, ...].
+    """
+    if not isinstance(methods, list):
+        return []
+    method_units: dict[str, set[str]] = {}
+    for item in methods:
+        if isinstance(item, dict):
+            method = str(item.get("method") or "").strip()
+            units = item.get("units") or []
+            if not isinstance(units, list):
+                units = [units]
+        elif isinstance(item, str):
+            method, units = _parse_legacy_method(item)
+        else:
+            continue
+        if not method:
+            continue
+        for unit in units:
+            unit = str(unit).strip()
+            if unit:
+                method_units.setdefault(method, set()).add(unit)
+    return [{"method": m, "units": sorted(us)} for m, us in sorted(method_units.items())]
+
+
 def parse_nuts(
     nuts_obj: dict[str, Any] | None,
-) -> tuple[list[int], list[str], list[str], list[str], list[str], bool, bool]:
+) -> tuple[list[int], list[str], list[str], dict[str, set[str]], dict[str, set[str]], bool, bool]:
     """
     From the /v1/info 'nuts' object return:
       - optional_nuts: sorted list of supported optional NUT numbers
       - all_units: deduplicated list of supported units (from NUT-04/05 methods)
       - stale_reasons: list of reasons discovered while parsing
-      - mint_methods: deduplicated "method (unit)" strings for NUT-04
-      - melt_methods: deduplicated "method (unit)" strings for NUT-05
+      - mint_methods: dict mapping NUT-04 method name -> set of supported units
+      - melt_methods: dict mapping NUT-05 method name -> set of supported units
       - nut4_disabled: whether NUT-04 minting is disabled
       - nut5_disabled: whether NUT-05 melting is disabled
     """
     optional_nuts: list[int] = []
     units: list[str] = []
     stale_reasons: list[str] = []
-    mint_methods: list[str] = []
-    melt_methods: list[str] = []
+    mint_methods: dict[str, set[str]] = {}
+    melt_methods: dict[str, set[str]] = {}
     nut4_disabled = False
     nut5_disabled = False
 
@@ -220,7 +255,7 @@ def parse_nuts(
                     m_name = str(method.get("method") or "").strip()
                     unit = normalize_unit(method.get("unit"))
                     if m_name and unit:
-                        mint_methods.append(f"{m_name} ({unit})")
+                        mint_methods.setdefault(m_name, set()).add(unit)
         elif nut_num == 5:
             nut5_disabled = bool(disabled)
             for method in value.get("methods") or []:
@@ -228,7 +263,7 @@ def parse_nuts(
                     m_name = str(method.get("method") or "").strip()
                     unit = normalize_unit(method.get("unit"))
                     if m_name and unit:
-                        melt_methods.append(f"{m_name} ({unit})")
+                        melt_methods.setdefault(m_name, set()).add(unit)
 
         if not supported or disabled:
             continue
@@ -251,8 +286,8 @@ def parse_nuts(
         sorted(set(optional_nuts)),
         sorted(set(units)),
         stale_reasons,
-        sorted(set(mint_methods)),
-        sorted(set(melt_methods)),
+        mint_methods,
+        melt_methods,
         nut4_disabled,
         nut5_disabled,
     )
@@ -393,8 +428,8 @@ def probe_mint(url: str) -> dict[str, Any]:
             "icon_url": str(info.get("icon_url") or "").strip(),
             "description": str(info.get("description") or "").strip(),
             "description_long": str(info.get("description_long") or "").strip(),
-            "mint_methods": mint_methods,
-            "melt_methods": melt_methods,
+            "mint_methods": [{"method": m, "units": sorted(us)} for m, us in sorted(mint_methods.items())],
+            "melt_methods": [{"method": m, "units": sorted(us)} for m, us in sorted(melt_methods.items())],
             "nut4_disabled": nut4_disabled,
             "nut5_disabled": nut5_disabled,
             "stale_reasons": parse_reasons,
@@ -436,12 +471,18 @@ def merge_with_existing(
         for key in ("email", "x", "nostr", "other_contact", "icon_url", "description", "description_long", "mint_methods", "melt_methods", "nut4_disabled", "nut5_disabled"):
             if old.get(key):
                 probed[key] = old[key]
+        probed["mint_methods"] = normalize_methods(probed.get("mint_methods"))
+        probed["melt_methods"] = normalize_methods(probed.get("melt_methods"))
         return probed
 
     # Online: backfill empty contact and presentation fields from the existing record.
     for key in ("email", "x", "nostr", "other_contact", "icon_url", "description", "description_long", "mint_methods", "melt_methods", "nut4_disabled", "nut5_disabled"):
         if not probed.get(key) and old.get(key):
             probed[key] = old[key]
+
+    # Ensure method fields are in the canonical structured form.
+    probed["mint_methods"] = normalize_methods(probed.get("mint_methods"))
+    probed["melt_methods"] = normalize_methods(probed.get("melt_methods"))
 
     return probed
 
@@ -562,8 +603,8 @@ def add_display_fields(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for r in records:
         r["nuts_display"] = ",".join(str(n) for n in r.get("nuts", []))
         r["units_display"] = ",".join(r.get("units", []))
-        r["mint_methods_display"] = ",".join(r.get("mint_methods", []))
-        r["melt_methods_display"] = ",".join(r.get("melt_methods", []))
+        r["mint_methods_display"] = ",".join(m["method"] for m in r.get("mint_methods", []))
+        r["melt_methods_display"] = ",".join(m["method"] for m in r.get("melt_methods", []))
     return records
 
 
