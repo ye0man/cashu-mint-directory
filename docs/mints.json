@@ -2,7 +2,7 @@
   {
     "url": "https://mint.ucash.space",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:25.496112Z",
+    "last_seen": "2026-08-17T12:58:23.014991Z",
     "name": "ucash mint",
     "implementation": "cdk-mintd",
     "version": "0.18.0-rc.0",
@@ -31,10 +31,20 @@
     "description": "Cashu mint backed by cdk-spark payment processor",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -45,13 +55,13 @@
     "stale_score": 80,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.minibits.cash/Bitcoin",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:08.740540Z",
+    "last_seen": "2026-08-17T12:58:18.506986Z",
     "name": "Minibits mint",
     "implementation": "cdk-mintd",
     "version": "0.17.5",
@@ -80,12 +90,32 @@
     "description": "Minibits wallet mint. Minibits is an active research project in BETA, use at your own risk.",
     "description_long": "Do not use with large amounts of ecash. Minibits mint is operated on a best-effort basis and without any guarantees.",
     "mint_methods": [
-      "bolt11 (sat)",
-      "onchain (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "onchain",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)",
-      "onchain (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "onchain",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -95,13 +125,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat),onchain (sat)",
-    "melt_methods_display": "bolt11 (sat),onchain (sat)"
+    "mint_methods_display": "bolt11,onchain",
+    "melt_methods_display": "bolt11,onchain"
   },
   {
     "url": "https://m7.mountainlake.io",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:03.507156Z",
+    "last_seen": "2026-08-17T12:57:59.278031Z",
     "name": "Mountainlake M7",
     "implementation": "cdk-mintd",
     "version": "0.17.5",
@@ -129,12 +159,32 @@
     "description": "A mint for Bitcoiners & Friends",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)",
-      "bolt12 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "bolt12",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)",
-      "bolt12 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "bolt12",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -144,13 +194,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat),bolt12 (sat)",
-    "melt_methods_display": "bolt11 (sat),bolt12 (sat)"
+    "mint_methods_display": "bolt11,bolt12",
+    "melt_methods_display": "bolt11,bolt12"
   },
   {
     "url": "https://mint.103100.xyz",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:05.761809Z",
+    "last_seen": "2026-08-17T12:58:00.313344Z",
     "name": "cdk-mintd",
     "implementation": "cdk-mintd",
     "version": "0.17.3",
@@ -178,10 +228,20 @@
     "description": "This is a reference mint for cdk-mintd",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -191,13 +251,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.hanbitkorea.org",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:29.593425Z",
+    "last_seen": "2026-08-17T12:58:09.151413Z",
     "name": "Hanbit mint",
     "implementation": "cdk-mintd",
     "version": "0.17.3",
@@ -226,10 +286,20 @@
     "description": "Hanbit Cashu mint",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -239,13 +309,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.kashir.xyz",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:33.062340Z",
+    "last_seen": "2026-08-17T12:58:10.619603Z",
     "name": "Kashir Mint",
     "implementation": "cdk-mintd",
     "version": "0.17.3",
@@ -273,10 +343,20 @@
     "description": "This is a companion mint for Kashir App",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -286,13 +366,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.fredix.xyz",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:27.981455Z",
+    "last_seen": "2026-08-17T12:58:08.144117Z",
     "name": "Mint fredix",
     "implementation": "cdk-mintd",
     "version": "0.17.3",
@@ -321,10 +401,20 @@
     "description": "a self-hosted Mint server",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -332,13 +422,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.21linz.at",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:07.397610Z",
+    "last_seen": "2026-08-17T12:58:01.047852Z",
     "name": "21linz Cashu Mint",
     "implementation": "cdk-mintd",
     "version": "0.17.1",
@@ -367,10 +457,20 @@
     "description": "Cashu mint hosted on node21",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -380,13 +480,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.sortug.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:23.491271Z",
+    "last_seen": "2026-08-17T12:58:22.264007Z",
     "name": "Sortug造逼厂",
     "implementation": "cdk-mintd",
     "version": "0.17.1",
@@ -416,24 +516,74 @@
     "description": "I like money",
     "description_long": "Soon on Urbit",
     "mint_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)",
-      "bolt12 (sat)",
-      "bolt12 (usd)",
-      "onchain (sat)",
-      "onchain (usd)",
-      "paypal (sat)",
-      "venmo (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "bolt12",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "onchain",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "paypal",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "venmo",
+        "units": [
+          "usd"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)",
-      "bolt12 (sat)",
-      "bolt12 (usd)",
-      "onchain (sat)",
-      "onchain (usd)",
-      "paypal (sat)",
-      "venmo (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "bolt12",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "onchain",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "paypal",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "venmo",
+        "units": [
+          "usd"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -441,13 +591,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20,29",
     "units_display": "sat,usd",
-    "mint_methods_display": "bolt11 (sat),bolt11 (usd),bolt12 (sat),bolt12 (usd),onchain (sat),onchain (usd),paypal (sat),venmo (usd)",
-    "melt_methods_display": "bolt11 (sat),bolt11 (usd),bolt12 (sat),bolt12 (usd),onchain (sat),onchain (usd),paypal (sat),venmo (usd)"
+    "mint_methods_display": "bolt11,bolt12,onchain,paypal,venmo",
+    "melt_methods_display": "bolt11,bolt12,onchain,paypal,venmo"
   },
   {
     "url": "https://testnut.cashu.space",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:34.335721Z",
+    "last_seen": "2026-08-17T12:58:27.394568Z",
     "name": "Testnut mint",
     "implementation": "cdk-mintd",
     "version": "0.17.0-rc.3",
@@ -477,24 +627,74 @@
     "description": "Mint for testing Cashu wallets",
     "description_long": "This mint usually runs the latest cdk-mintd from main branch of the cdk repository. It uses a FakeWallet, all your Lightning invoices will always be marked paid so that you can test minting and melting ecash via Lightning.",
     "mint_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)",
-      "bolt12 (sat)",
-      "bolt12 (usd)",
-      "onchain (sat)",
-      "onchain (usd)",
-      "paypal (sat)",
-      "venmo (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "bolt12",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "onchain",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "paypal",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "venmo",
+        "units": [
+          "usd"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)",
-      "bolt12 (sat)",
-      "bolt12 (usd)",
-      "onchain (sat)",
-      "onchain (usd)",
-      "paypal (sat)",
-      "venmo (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "bolt12",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "onchain",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      },
+      {
+        "method": "paypal",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "venmo",
+        "units": [
+          "usd"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -505,13 +705,13 @@
     "stale_score": 80,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20,29",
     "units_display": "sat,usd",
-    "mint_methods_display": "bolt11 (sat),bolt11 (usd),bolt12 (sat),bolt12 (usd),onchain (sat),onchain (usd),paypal (sat),venmo (usd)",
-    "melt_methods_display": "bolt11 (sat),bolt11 (usd),bolt12 (sat),bolt12 (usd),onchain (sat),onchain (usd),paypal (sat),venmo (usd)"
+    "mint_methods_display": "bolt11,bolt12,onchain,paypal,venmo",
+    "melt_methods_display": "bolt11,bolt12,onchain,paypal,venmo"
   },
   {
     "url": "https://mint.westernbtc.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:27.736697Z",
+    "last_seen": "2026-08-17T12:58:24.093322Z",
     "name": "WesternBTC Cashu mint",
     "implementation": "cdk-mintd",
     "version": "0.17.0",
@@ -540,12 +740,32 @@
     "description": "WesternBTC Cashu mint. No cloud providers used.",
     "description_long": "WesternBTC Cashu mint. No cloud providers used. ONLY USE AMOUNTS OF BITCOIN YOU WOULD BE OKAY LOSING.",
     "mint_methods": [
-      "bolt11 (sat)",
-      "onchain (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "onchain",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)",
-      "onchain (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "onchain",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -553,13 +773,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat),onchain (sat)",
-    "melt_methods_display": "bolt11 (sat),onchain (sat)"
+    "mint_methods_display": "bolt11,onchain",
+    "melt_methods_display": "bolt11,onchain"
   },
   {
     "url": "https://cashu.centurymetadata.org",
     "status": "online",
-    "last_seen": "2026-08-17T12:31:52.476917Z",
+    "last_seen": "2026-08-17T12:57:56.576094Z",
     "name": "Century Metadata Test Mint",
     "implementation": "cdk-mintd",
     "version": "0.15.1",
@@ -587,12 +807,32 @@
     "description": "Century Metadata test Cashu mint",
     "description_long": "Experimental Cashu mint for testing on Core Lightning.",
     "mint_methods": [
-      "bolt11 (sat)",
-      "bolt12 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "bolt12",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)",
-      "bolt12 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      },
+      {
+        "method": "bolt12",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -602,13 +842,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat),bolt12 (sat)",
-    "melt_methods_display": "bolt11 (sat),bolt12 (sat)"
+    "mint_methods_display": "bolt11,bolt12",
+    "melt_methods_display": "bolt11,bolt12"
   },
   {
     "url": "https://mint.lndiscs.duckdns.org",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:37.708605Z",
+    "last_seen": "2026-08-17T12:58:11.331845Z",
     "name": "Minty Fresh Mint",
     "implementation": "cdk-mintd",
     "version": "0.13.4",
@@ -634,10 +874,20 @@
     "description": "A Cashu mint powered by LNbits",
     "description_long": "This mint uses LNbits as the Lightning backend",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -648,13 +898,13 @@
     "stale_score": 65,
     "nuts_display": "7,8,9,10,11,12,17,19,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://lekmint.cash/api",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:00.897120Z",
+    "last_seen": "2026-08-17T12:57:58.503673Z",
     "name": "Lek Mint",
     "implementation": "LekMint",
     "version": "1.1.0",
@@ -690,7 +940,7 @@
   {
     "url": "https://antifiat.cash",
     "status": "online",
-    "last_seen": "2026-08-17T12:31:50.699553Z",
+    "last_seen": "2026-08-17T12:57:55.082591Z",
     "name": "antifiat mint",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -718,10 +968,20 @@
     "description": "A life spent building an electronic cash system is not a life wasted.",
     "description_long": "An ecash mint for the poets and cyphermonks.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -731,13 +991,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://8333.space:3338",
     "status": "online",
-    "last_seen": "2026-08-17T12:31:49.579825Z",
+    "last_seen": "2026-08-17T12:57:54.615682Z",
     "name": "Cashu test mint",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -766,12 +1026,22 @@
     "description": "This mint is for testing and development purposes only. Do not use this mint as a default mint in your application! Please use it with caution and only with very small amounts. Your Cashu client could have bugs. Accidents and bugs can lead to loss of funds for which we are not responsible for.",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -781,13 +1051,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,17,19,20,29",
     "units_display": "sat,usd",
-    "mint_methods_display": "bolt11 (sat),bolt11 (usd)",
-    "melt_methods_display": "bolt11 (sat),bolt11 (usd)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.chorus.community",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:20.507239Z",
+    "last_seen": "2026-08-17T12:58:05.745021Z",
     "name": "Chorus OFF Mint",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -817,14 +1087,24 @@
     "description": "The Chorus mint for the Oslo Freedom Forum 2024",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (eur)",
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "eur",
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (eur)",
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "eur",
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -832,13 +1112,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20,29",
     "units_display": "eur,sat,usd",
-    "mint_methods_display": "bolt11 (eur),bolt11 (sat),bolt11 (usd)",
-    "melt_methods_display": "bolt11 (eur),bolt11 (sat),bolt11 (usd)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.coinos.io",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:21.537300Z",
+    "last_seen": "2026-08-17T12:58:06.068056Z",
     "name": "Coinos",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -866,10 +1146,20 @@
     "description": "Coinos cashu mint",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -877,13 +1167,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.lnpay.cz",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:39.141301Z",
+    "last_seen": "2026-08-17T12:58:11.911062Z",
     "name": "LNpay Mint",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -911,10 +1201,20 @@
     "description": "This mint is for demonstration purposes only",
     "description_long": "By sending funds to this mint, you acknowledge that you are making a voluntary, non-refundable contribution to the operator and receive no guarantee of value, service, or return.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -922,13 +1222,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.macadamia.cash",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:44.110914Z",
+    "last_seen": "2026-08-17T12:58:16.018108Z",
     "name": "macadamia Mint",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -956,10 +1256,20 @@
     "description": "This is the default mint for macadamia Wallet.",
     "description_long": "Please use this mint at your own risk. Refunds may not always be possible. Only mint amounts you are ready to lose. This mint uses a dedicated lightning node for reliable and quick payments, but liquidity might at times be constrained.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -967,13 +1277,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.colbitcoin.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:23.076294Z",
+    "last_seen": "2026-08-17T12:58:06.355566Z",
     "name": "Mint ColBitcoin",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -1001,10 +1311,20 @@
     "description": "Cashu para todos",
     "description_long": "Sistema de pagos privado y resistente a la sensura para las comunidades.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1012,13 +1332,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.cubabitcoin.org",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:24.291208Z",
+    "last_seen": "2026-08-17T12:58:06.538358Z",
     "name": "Mint Cuba Bitcoin",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -1047,12 +1367,22 @@
     "description": "Servicio comunitario de Cashu Mint por Cuba Bitcoin",
     "description_long": "(ES)Este Cashu Mint es una implementación de ecash sobre la red Lightning. Si bien el servicio es funcional y estable, aún se encuentra en fase de desarrollo y puede contener errores. Por su seguridad, le recomendamos encarecidamente que solo utilice fondos que esté dispuesto a perder. El equipo de Cuba Bitcoin ofrece su apoyo para resolver cualquier incidencia. Sin embargo, no podemos asumir responsabilidad por pérdidas derivadas de errores del usuario o de posibles fallos en el protocolo. (EN) This Cashu Mint is an implementation of ecash on the Lightning Network. While the service is functional and stable, it is still under development and may contain bugs. For your security, we strongly recommend that you only use funds you are willing to lose. The Cuba Bitcoin team is available to provide support and assist with any issues. However, we cannot assume responsibility for losses resulting from user error or potential protocol failures.",
     "mint_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1060,13 +1390,68 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,17,19,20,29",
     "units_display": "sat,usd",
-    "mint_methods_display": "bolt11 (sat),bolt11 (usd)",
-    "melt_methods_display": "bolt11 (sat),bolt11 (usd)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
+  },
+  {
+    "url": "https://mint.mikelcalvo.net",
+    "status": "online",
+    "last_seen": "2026-08-17T12:58:17.015103Z",
+    "name": "MK Mint",
+    "implementation": "Nutshell",
+    "version": "0.20.3",
+    "nuts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      17,
+      20,
+      29
+    ],
+    "units": [
+      "sat"
+    ],
+    "email": "contact@mikelcalvo.net",
+    "x": "",
+    "nostr": "npub1jxc5rqjrnvdtw09q65cqupy4k90y4z9pkjwryanxtn0k9mcq59jq83ykzl",
+    "other_contact": "",
+    "icon_url": "https://mikelcalvo.net/images/artifact.gif",
+    "description": "Mint by MKLabs",
+    "description_long": "Intende for personal use but feel free to use it too.",
+    "mint_methods": [
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
+    ],
+    "melt_methods": [
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
+    ],
+    "nut4_disabled": false,
+    "nut5_disabled": false,
+    "stale_reasons": [],
+    "stale_score": 100,
+    "nuts_display": "7,8,9,10,11,12,14,15,17,20,29",
+    "units_display": "sat",
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.mountainlake.io",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:12.831017Z",
+    "last_seen": "2026-08-17T12:58:19.782665Z",
     "name": "Mountainlake M5",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -1095,10 +1480,20 @@
     "description": "A mint for bitcoiners, friends, and family",
     "description_long": "I am a Bitcoiner supporting the adoption of Bitcoin with education and services such as this mint :-)",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1106,13 +1501,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.nuts.cash",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:18.869338Z",
+    "last_seen": "2026-08-17T12:58:20.594359Z",
     "name": "Nuts",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -1140,10 +1535,20 @@
     "description": "Cracker of a mint",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1153,13 +1558,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.wolfcoil.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:29.010331Z",
+    "last_seen": "2026-08-17T12:58:24.723084Z",
     "name": "peeenuts",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -1188,10 +1593,20 @@
     "description": "experimental cashu mint server on Umbrel",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1201,13 +1616,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,15,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.solife.me",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:22.660939Z",
+    "last_seen": "2026-08-17T12:58:21.689448Z",
     "name": "Solife Mint",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -1234,10 +1649,20 @@
     "description": "Private ecash mint via Nutshell",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1245,13 +1670,13 @@
     "stale_score": 97,
     "nuts_display": "7,8,9,10,11,12,14,17,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.sovran.money",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:24.298243Z",
+    "last_seen": "2026-08-17T12:58:22.580551Z",
     "name": "Sovran",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -1279,10 +1704,20 @@
     "description": "Sovran is still in development, use at your own risk.",
     "description_long": "Do not use with large amounts of ecash. Sovran is still in development and is operated on a best-effort basis and without any guarentees.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1290,13 +1725,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.unclerics.cash",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:26.346540Z",
+    "last_seen": "2026-08-17T12:58:23.833361Z",
     "name": "Uncle Ric's 2.0",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -1323,10 +1758,20 @@
     "description": "⚡ Ecash for the homies ⚡",
     "description_long": "⚠️ TESTING MINT - Do not store large amounts! Use at your own risk. This is an experimental setup.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1334,13 +1779,13 @@
     "stale_score": 97,
     "nuts_display": "7,8,9,10,11,12,14,17,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.lnvoltz.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:41.598643Z",
+    "last_seen": "2026-08-17T12:58:13.356862Z",
     "name": "Voltz Mint",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -1368,10 +1813,20 @@
     "description": "lnvoltz.xyz",
     "description_long": "Voltz Mint runs the Nutshell implementation. A private Lightning node is used as the funding source for the Mint. Ecash funds are the responsibility of the users, always back up your eCash wallet. Loss of ecash tokens is not the responsibility of Voltz Mint.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1379,13 +1834,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.cashu.chat",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:18.895455Z",
+    "last_seen": "2026-08-17T12:58:05.183849Z",
     "name": "cashu.chat",
     "implementation": "Nutshell",
     "version": "0.20.2",
@@ -1412,10 +1867,20 @@
     "description": "Personal sovereign Cashu mint on cashu.chat. Lightning-backed ecash.",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1425,13 +1890,13 @@
     "stale_score": 87,
     "nuts_display": "7,8,9,10,11,12,14,17,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.btcforplebs.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:18.459717Z",
+    "last_seen": "2026-08-17T12:58:04.573979Z",
     "name": "BTCforPlebs Mint",
     "implementation": "Nutshell",
     "version": "0.20.1",
@@ -1459,10 +1924,20 @@
     "description": "",
     "description_long": "A Cashu mint built for the average person to use.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1470,13 +1945,13 @@
     "stale_score": 100,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.gitvid.net",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:29.107137Z",
+    "last_seen": "2026-08-17T12:58:08.435422Z",
     "name": "Cashu mint",
     "implementation": "Nutshell",
     "version": "0.20.1",
@@ -1503,10 +1978,20 @@
     "description": "",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1516,13 +2001,13 @@
     "stale_score": 87,
     "nuts_display": "7,8,9,10,11,12,14,17,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://cashu.21m.lol",
     "status": "online",
-    "last_seen": "2026-08-17T12:31:51.428004Z",
+    "last_seen": "2026-08-17T12:57:55.473832Z",
     "name": "cashu.21m.lol",
     "implementation": "Nutshell",
     "version": "0.20.1",
@@ -1550,10 +2035,20 @@
     "description": "No guarantees. Use at your own risk!",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1563,13 +2058,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.lnw.cash",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:42.417631Z",
+    "last_seen": "2026-08-17T12:58:15.326340Z",
     "name": "LNWCASH MINT",
     "implementation": "Nutshell",
     "version": "0.20.1",
@@ -1597,10 +2092,20 @@
     "description": "",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1610,13 +2115,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,17,19,20,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://forge.flashapp.me",
     "status": "online",
-    "last_seen": "2026-08-17T12:31:57.465395Z",
+    "last_seen": "2026-08-17T12:57:57.378916Z",
     "name": "Flash Forge",
     "implementation": "Nutshell",
     "version": "0.20.0",
@@ -1643,12 +2148,22 @@
     "description": "Flash Forge - A Cashu Mint for the Caribbean.",
     "description_long": "Flash Forge is a Sovereign mint for Flash, permissionlessly forging cashu tokens for the islands of the Caribbean.",
     "mint_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1656,13 +2171,13 @@
     "stale_score": 95,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat,usd",
-    "mint_methods_display": "bolt11 (sat),bolt11 (usd)",
-    "melt_methods_display": "bolt11 (sat),bolt11 (usd)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://kashu.me",
     "status": "online",
-    "last_seen": "2026-08-17T12:31:59.335479Z",
+    "last_seen": "2026-08-17T12:57:57.997253Z",
     "name": "Kashu.me",
     "implementation": "Nutshell",
     "version": "0.20.0",
@@ -1688,10 +2203,20 @@
     "description": "A Cashu mint by plebs, for plebs.",
     "description_long": "Kashu.me is a simple and fast Cashu mint built for the everyday Bitcoiner. No accounts, no tracking, no middlemen. Just sats, shared privately over the Lightning Network using Cashu. Open to all, run by plebs who care about sovereignty and freedom.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1701,13 +2226,13 @@
     "stale_score": 85,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.mjex.me",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:11.451535Z",
+    "last_seen": "2026-08-17T12:58:19.234378Z",
     "name": "mjex.me cashu mint",
     "implementation": "Nutshell",
     "version": "0.20.0",
@@ -1734,10 +2259,20 @@
     "description": "This mint is for development & education",
     "description_long": "This mint is for development & education.  It is not guaranteed to remain operational.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1745,13 +2280,13 @@
     "stale_score": 97,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.nodenebula.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:16.629135Z",
+    "last_seen": "2026-08-17T12:58:20.147499Z",
     "name": "Nebula",
     "implementation": "Nutshell",
     "version": "0.20.0",
@@ -1778,10 +2313,20 @@
     "description": "A community mint 4 all",
     "description_long": "Use this mint as you see fit but do so with caution. It is early days.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1789,13 +2334,13 @@
     "stale_score": 97,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.routstr.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:20.203076Z",
+    "last_seen": "2026-08-17T12:58:21.165869Z",
     "name": "RoutstrMint",
     "implementation": "Nutshell",
     "version": "0.20.0",
@@ -1822,12 +2367,22 @@
     "description": "Routstr testing mint",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (msat)",
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "msat",
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (msat)",
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "msat",
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1835,13 +2390,13 @@
     "stale_score": 95,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "msat,sat",
-    "mint_methods_display": "bolt11 (msat),bolt11 (sat)",
-    "melt_methods_display": "bolt11 (msat),bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.28waves.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:09.035041Z",
+    "last_seen": "2026-08-17T12:58:02.530171Z",
     "name": "28MINT",
     "implementation": "Nutshell",
     "version": "0.19.2",
@@ -1867,10 +2422,20 @@
     "description": "Empowering Africa with Bitcoin and eCash to transact without borders.",
     "description_long": "28MINT is more than just a mint, it’s a step toward Africa’s financial independence. By combining the strength of Bitcoin, the privacy of eCash, and the universal right to freedom, we’re building tools for unstoppable communities. With every sat transacted, we unlock a future where Africans can trade, save, and grow without permission, without borders, and without limits.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1881,13 +2446,13 @@
     "stale_score": 65,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.endfiat.money",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:26.239594Z",
+    "last_seen": "2026-08-17T12:58:07.501168Z",
     "name": "Cashu mint",
     "implementation": "Nutshell",
     "version": "0.19.2",
@@ -1913,10 +2478,20 @@
     "description": "",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1927,13 +2502,13 @@
     "stale_score": 65,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.mineracks.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:07.300043Z",
+    "last_seen": "2026-08-17T12:58:17.667892Z",
     "name": "Mineracks Mint",
     "implementation": "Nutshell",
     "version": "0.19.2",
@@ -1960,10 +2535,20 @@
     "description": "Public Cashu mint (experimental). Operated by mineracks (learn more about us at mineracks.com).",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -1973,13 +2558,13 @@
     "stale_score": 77,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.sharegap.net",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:21.328580Z",
+    "last_seen": "2026-08-17T12:58:21.478563Z",
     "name": "Nostrodomo Mint",
     "implementation": "Nutshell",
     "version": "0.19.2",
@@ -2006,10 +2591,20 @@
     "description": "Cashu mint for AI agents",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -2020,13 +2615,13 @@
     "stale_score": 67,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://21mint.me",
     "status": "online",
-    "last_seen": "2026-08-17T12:31:48.426958Z",
+    "last_seen": "2026-08-17T12:57:54.176171Z",
     "name": "21Mint",
     "implementation": "Nutshell",
     "version": "0.18.2",
@@ -2052,10 +2647,20 @@
     "description": "Secure and privacy-oriented Cashu mint.",
     "description_long": "21Mint offers a robust Chaumian Ecash service designed for seamless Bitcoin cashu and Lightning transactions. Please note: This service is provided 'as is' without any warranties. Use at your own risk!",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -2065,13 +2670,13 @@
     "stale_score": 75,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.belgianbitcoinembassy.org",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:16.203196Z",
+    "last_seen": "2026-08-17T12:58:04.304257Z",
     "name": "BBE Cashu mint",
     "implementation": "Nutshell",
     "version": "0.18.2",
@@ -2097,10 +2702,20 @@
     "description": "Experience the future of LN with BBE Cashu Mint.",
     "description_long": "Welcome to the Belgian Bitcoin Embassy Cashu Mint, a collaborative initiative with Azzamo, designed to offer you a secure and innovative platform for managing digital transactions. As we push the boundaries of financial technology, our platform remains in a constant state of evolution, driven by the feedback and active participation of our community. Whether you are a novice or an expert, our mint provides the tools necessary for you to explore and engage with digital assets safely and effectively. \n\nEmbark on this journey with us, as we navigate the exciting and ever-changing landscape of digital transactions, emphasizing education, empowerment, and community engagement.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": true,
     "nut5_disabled": false,
@@ -2110,13 +2725,13 @@
     "stale_score": 75,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.mintlnd.org",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:09.961123Z",
+    "last_seen": "2026-08-17T12:58:19.067053Z",
     "name": "MintLND",
     "implementation": "Nutshell",
     "version": "0.18.2",
@@ -2143,10 +2758,20 @@
     "description": "Cashu mint by jcks",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -2157,13 +2782,13 @@
     "stale_score": 67,
     "nuts_display": "7,8,9,10,11,12,14,15,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://nofee.testnut.cashu.space",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:30.238904Z",
+    "last_seen": "2026-08-17T12:58:25.167161Z",
     "name": "Testnut feeless mint",
     "implementation": "Nutshell",
     "version": "0.18.2",
@@ -2190,12 +2815,22 @@
     "description": "This mint has fees disabled for swaps. Use it to test your old wallet but make sure to implement fees and use testnut.cashu.space for testing.",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -2206,13 +2841,13 @@
     "stale_score": 65,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat,usd",
-    "mint_methods_display": "bolt11 (sat),bolt11 (usd)",
-    "melt_methods_display": "bolt11 (sat),bolt11 (usd)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.0xchat.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:04.941904Z",
+    "last_seen": "2026-08-17T12:57:59.629417Z",
     "name": "0xchat mint",
     "implementation": "Nutshell",
     "version": "0.18.1",
@@ -2238,10 +2873,20 @@
     "description": "The mint for 0xchat",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -2251,13 +2896,13 @@
     "stale_score": 75,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.lnserver.com",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:40.164447Z",
+    "last_seen": "2026-08-17T12:58:12.839619Z",
     "name": "LNServer Mint",
     "implementation": "Nutshell",
     "version": "0.18.1",
@@ -2283,10 +2928,20 @@
     "description": "A reliable CashU mint brought to you by the people you know Protect your nuts, don't get rugged! LNServer operates an unruggable CashU mint for our fellow bitcoiners. Your nuts are safe with us",
     "description_long": "A reliable CashU mint brought to you by the people you know Protect your nuts, don't get rugged! LNServer operates an unruggable CashU mint for our fellow bitcoiners. Your nuts are safe with us",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -2296,13 +2951,13 @@
     "stale_score": 75,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.cypherflow.ai",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:25.213267Z",
+    "last_seen": "2026-08-17T12:58:06.999569Z",
     "name": "Cypherflow Mint",
     "implementation": "Nutshell",
     "version": "0.18.0",
@@ -2328,10 +2983,20 @@
     "description": "\"Mint for Cypherflow apps\"",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -2341,13 +3006,13 @@
     "stale_score": 75,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.instant.gr",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:32.383138Z",
+    "last_seen": "2026-08-17T12:58:09.922149Z",
     "name": "Instant Mint",
     "implementation": "Nutshell",
     "version": "0.18.0",
@@ -2373,10 +3038,20 @@
     "description": "The great Cashu Mint",
     "description_long": "A Cashu Mint that you can use to mint, send and receive ecash, as well as pay and get paid through LN.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -2386,13 +3061,13 @@
     "stale_score": 75,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.agorist.space",
     "status": "online",
-    "last_seen": "2026-08-17T12:32:13.165049Z",
+    "last_seen": "2026-08-17T12:58:03.459270Z",
     "name": "Agorist Cashu Mint",
     "implementation": "Nutshell",
     "version": "0.17.0",
@@ -2418,10 +3093,20 @@
     "description": "\"Recent updates requires old tokens to be manually exchanged for new ones. Contact me!.\"",
     "description_long": "",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -2431,13 +3116,13 @@
     "stale_score": 75,
     "nuts_display": "7,8,9,10,11,12,14,17,20",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://rugs.cashu.exchange",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:31.160504Z",
+    "last_seen": "2026-08-17T12:58:26.048038Z",
     "name": "Rugs Monthly",
     "implementation": "Nutshell",
     "version": "0.0.1",
@@ -2466,12 +3151,22 @@
     "description": "DEVELOPMENT MINT - All sats will be rugged and donated to charity",
     "description_long": "This is a development/testing mint. DO NOT deposit real funds! Maximum 2100 sats per operation. All funds will be periodically swept and donated to charity. Use testnut.cashu.exchange for unlimited fake sats testing.",
     "mint_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)",
-      "bolt11 (usd)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat",
+          "usd"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -2481,13 +3176,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,19,20,23,29",
     "units_display": "sat,usd",
-    "mint_methods_display": "bolt11 (sat),bolt11 (usd)",
-    "melt_methods_display": "bolt11 (sat),bolt11 (usd)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://rugs01.cashu.exchange",
     "status": "online",
-    "last_seen": "2026-08-17T12:33:32.184067Z",
+    "last_seen": "2026-08-17T12:58:26.948581Z",
     "name": "Rugs Monthly 01",
     "implementation": "Nutshell",
     "version": "0.0.1",
@@ -2515,10 +3210,20 @@
     "description": "DEVELOPMENT MINT - All sats will be rugged and donated to charity",
     "description_long": "This is a development/testing mint. DO NOT deposit real funds! Maximum 2100 sats per operation. All funds will be periodically swept and donated to charity. Use testnut.cashu.exchange for unlimited fake sats testing.",
     "mint_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "melt_methods": [
-      "bolt11 (sat)"
+      {
+        "method": "bolt11",
+        "units": [
+          "sat"
+        ]
+      }
     ],
     "nut4_disabled": false,
     "nut5_disabled": false,
@@ -2528,13 +3233,13 @@
     "stale_score": 90,
     "nuts_display": "7,8,9,10,11,12,14,19,20,23,29",
     "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
+    "mint_methods_display": "bolt11",
+    "melt_methods_display": "bolt11"
   },
   {
     "url": "https://mint.lemonfizz.st",
     "status": "offline",
-    "last_seen": "2026-08-17T12:32:35.659633Z",
+    "last_seen": "2026-08-17T12:58:11.167621Z",
     "name": "LemonFizz Mint",
     "implementation": "cdk-mintd",
     "version": "0.15.1",
@@ -2576,56 +3281,9 @@
     "melt_methods_display": ""
   },
   {
-    "url": "https://mint.mikelcalvo.net",
-    "status": "offline",
-    "last_seen": "2026-08-17T12:33:05.206304Z",
-    "name": "MK Mint",
-    "implementation": "Nutshell",
-    "version": "0.20.3",
-    "nuts": [
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      14,
-      15,
-      17,
-      20,
-      29
-    ],
-    "units": [
-      "sat"
-    ],
-    "email": "contact@mikelcalvo.net",
-    "x": "",
-    "nostr": "npub1jxc5rqjrnvdtw09q65cqupy4k90y4z9pkjwryanxtn0k9mcq59jq83ykzl",
-    "other_contact": "",
-    "icon_url": "https://mikelcalvo.net/images/artifact.gif",
-    "description": "Mint by MKLabs",
-    "description_long": "Intende for personal use but feel free to use it too.",
-    "mint_methods": [
-      "bolt11 (sat)"
-    ],
-    "melt_methods": [
-      "bolt11 (sat)"
-    ],
-    "nut4_disabled": false,
-    "nut5_disabled": false,
-    "stale_score": 60,
-    "stale_reasons": [
-      "offline"
-    ],
-    "nuts_display": "7,8,9,10,11,12,14,15,17,20,29",
-    "units_display": "sat",
-    "mint_methods_display": "bolt11 (sat)",
-    "melt_methods_display": "bolt11 (sat)"
-  },
-  {
     "url": "https://cashu.cz",
     "status": "offline",
-    "last_seen": "2026-08-17T12:31:55.416239Z",
+    "last_seen": "2026-08-17T12:57:56.936311Z",
     "name": "cashu.cz",
     "implementation": "Nutshell",
     "version": "0.20.1",
@@ -2668,7 +3326,7 @@
   {
     "url": "https://lnb.bolverker.com/cashu/api/v1/GZjPXyQXsgnZEgKZsLRQyy",
     "status": "offline",
-    "last_seen": "2026-08-17T12:32:02.159520Z",
+    "last_seen": "2026-08-17T12:57:58.728301Z",
     "name": "Mycelium Mint",
     "implementation": "Nutshell",
     "version": "0.18.2",
