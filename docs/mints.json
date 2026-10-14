@@ -2,7 +2,7 @@
   {
     "url": "https://m7.mountainlake.io",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:34.792602Z",
+    "last_seen": "2026-10-14T21:31:52.724926Z",
     "name": "Mountainlake M7",
     "implementation": "cdk-mintd",
     "version": "0.18.2",
@@ -72,7 +72,7 @@
   {
     "url": "https://mint.21linz.at",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:36.866945Z",
+    "last_seen": "2026-10-14T21:31:54.058600Z",
     "name": "21linz Cashu Mint",
     "implementation": "cdk-mintd",
     "version": "0.18.1",
@@ -131,7 +131,7 @@
   {
     "url": "https://mint.macadamia.cash",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:52.342366Z",
+    "last_seen": "2026-10-14T21:32:08.485708Z",
     "name": "macadamia Mint",
     "implementation": "cdk-mintd",
     "version": "0.18.1",
@@ -189,7 +189,7 @@
   {
     "url": "https://testnut.cashu.space",
     "status": "online",
-    "last_seen": "2026-10-14T17:00:04.604669Z",
+    "last_seen": "2026-10-14T21:32:17.862595Z",
     "name": "Testnut mint",
     "implementation": "cdk-mintd",
     "version": "0.18.1",
@@ -279,7 +279,7 @@
   {
     "url": "https://mint.hedwig.sh/",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:45.534958Z",
+    "last_seen": "2026-10-14T21:32:00.390785Z",
     "name": "Hedwig Cashu Mint",
     "implementation": "cdk-mintd",
     "version": "0.18.0-rc.3",
@@ -348,7 +348,7 @@
   {
     "url": "https://mint.sovran.money",
     "status": "online",
-    "last_seen": "2026-10-14T17:00:00.336115Z",
+    "last_seen": "2026-10-14T21:32:14.520748Z",
     "name": "Sovran Mint",
     "implementation": "cdk-mintd",
     "version": "0.18.0-rc.1",
@@ -417,7 +417,7 @@
   {
     "url": "https://mint.ucash.space",
     "status": "online",
-    "last_seen": "2026-10-14T17:00:00.909817Z",
+    "last_seen": "2026-10-14T21:32:14.861579Z",
     "name": "ucash mint",
     "implementation": "cdk-mintd",
     "version": "0.18.0-rc.0",
@@ -476,7 +476,7 @@
   {
     "url": "https://mint.minibits.cash/Bitcoin",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:54.991328Z",
+    "last_seen": "2026-10-14T21:32:10.870672Z",
     "name": "Minibits mint",
     "implementation": "cdk-mintd",
     "version": "0.17.7",
@@ -546,7 +546,7 @@
   {
     "url": "https://mint.westernbtc.com",
     "status": "online",
-    "last_seen": "2026-10-14T17:00:01.396475Z",
+    "last_seen": "2026-10-14T21:32:15.303309Z",
     "name": "WesternBTC Cashu mint",
     "implementation": "cdk-mintd",
     "version": "0.17.6",
@@ -616,7 +616,7 @@
   {
     "url": "https://mint.103100.xyz",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:36.179811Z",
+    "last_seen": "2026-10-14T21:31:53.508244Z",
     "name": "cdk-mintd",
     "implementation": "cdk-mintd",
     "version": "0.17.5",
@@ -674,7 +674,7 @@
   {
     "url": "https://mint.kashir.xyz",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:47.597300Z",
+    "last_seen": "2026-10-14T21:32:01.602288Z",
     "name": "Kashir Mint",
     "implementation": "cdk-mintd",
     "version": "0.17.5",
@@ -732,7 +732,7 @@
   {
     "url": "https://mint.hanbitkorea.org",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:45.053481Z",
+    "last_seen": "2026-10-14T21:31:59.994717Z",
     "name": "Hanbit mint",
     "implementation": "cdk-mintd",
     "version": "0.17.3",
@@ -790,7 +790,7 @@
   {
     "url": "https://mint.lemonfizz.st",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:48.577600Z",
+    "last_seen": "2026-10-14T21:32:02.699450Z",
     "name": "LemonFizz Mint",
     "implementation": "cdk-mintd",
     "version": "0.17.3",
@@ -857,7 +857,7 @@
   {
     "url": "https://mint.sortug.com",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:59.931526Z",
+    "last_seen": "2026-10-14T21:32:14.050810Z",
     "name": "Sortug造逼厂",
     "implementation": "cdk-mintd",
     "version": "0.17.1",
@@ -968,7 +968,7 @@
   {
     "url": "https://cashu.centurymetadata.org",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:31.274407Z",
+    "last_seen": "2026-10-14T21:31:50.078288Z",
     "name": "Century Metadata Test Mint",
     "implementation": "cdk-mintd",
     "version": "0.15.1",
@@ -1037,7 +1037,7 @@
   {
     "url": "https://mint.lndiscs.duckdns.org",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:48.724508Z",
+    "last_seen": "2026-10-14T21:32:04.600393Z",
     "name": "Minty Fresh Mint",
     "implementation": "cdk-mintd",
     "version": "0.13.4",
@@ -1093,7 +1093,7 @@
   {
     "url": "https://lekmint.cash/api",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:33.706764Z",
+    "last_seen": "2026-10-14T21:31:51.892905Z",
     "name": "Lek Mint",
     "implementation": "LekMint",
     "version": "1.1.1",
@@ -1129,7 +1129,7 @@
   {
     "url": "https://21mint.me",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:28.790672Z",
+    "last_seen": "2026-10-14T21:31:47.950229Z",
     "name": "21Mint",
     "implementation": "Nutshell",
     "version": "0.21.0",
@@ -1186,7 +1186,7 @@
   {
     "url": "https://antifiat.cash",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:29.698148Z",
+    "last_seen": "2026-10-14T21:31:48.666630Z",
     "name": "antifiat mint",
     "implementation": "Nutshell",
     "version": "0.21.0",
@@ -1244,7 +1244,7 @@
   {
     "url": "https://mint.coinos.io",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:41.742659Z",
+    "last_seen": "2026-10-14T21:31:57.880485Z",
     "name": "Coinos",
     "implementation": "Nutshell",
     "version": "0.21.0",
@@ -1301,7 +1301,7 @@
   {
     "url": "https://kashu.me",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:32.898158Z",
+    "last_seen": "2026-10-14T21:31:51.536691Z",
     "name": "Kashu.me",
     "implementation": "Nutshell",
     "version": "0.21.0",
@@ -1359,7 +1359,7 @@
   {
     "url": "https://mint.lnpay.cz",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:49.317003Z",
+    "last_seen": "2026-10-14T21:32:05.397417Z",
     "name": "LNpay Mint",
     "implementation": "Nutshell",
     "version": "0.21.0",
@@ -1417,7 +1417,7 @@
   {
     "url": "https://mint.cubabitcoin.org",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:42.426839Z",
+    "last_seen": "2026-10-14T21:31:58.162303Z",
     "name": "Mint Cuba Bitcoin",
     "implementation": "Nutshell",
     "version": "0.21.0",
@@ -1475,7 +1475,7 @@
   {
     "url": "https://mint.mintlnd.org",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:55.673649Z",
+    "last_seen": "2026-10-14T21:32:11.260590Z",
     "name": "MintLND",
     "implementation": "Nutshell",
     "version": "0.21.0",
@@ -1533,7 +1533,7 @@
   {
     "url": "https://mint.mikelcalvo.net",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:53.755709Z",
+    "last_seen": "2026-10-14T21:32:09.481677Z",
     "name": "MK Mint",
     "implementation": "Nutshell",
     "version": "0.21.0",
@@ -1590,7 +1590,7 @@
   {
     "url": "https://mint.mountainlake.io",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:56.409960Z",
+    "last_seen": "2026-10-14T21:32:11.764207Z",
     "name": "Mountainlake M5",
     "implementation": "Nutshell",
     "version": "0.21.0",
@@ -1648,7 +1648,7 @@
   {
     "url": "https://8333.space:3338",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:29.243982Z",
+    "last_seen": "2026-10-14T21:31:48.322819Z",
     "name": "Cashu test mint",
     "implementation": "Nutshell",
     "version": "0.20.3.1",
@@ -1708,7 +1708,7 @@
   {
     "url": "https://mint.chorus.community",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:41.215006Z",
+    "last_seen": "2026-10-14T21:31:57.464871Z",
     "name": "Chorus OFF Mint",
     "implementation": "Nutshell",
     "version": "0.20.3.1",
@@ -1771,7 +1771,7 @@
   {
     "url": "https://forge.flashapp.me",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:32.420675Z",
+    "last_seen": "2026-10-14T21:31:51.056154Z",
     "name": "Flash Forge",
     "implementation": "Nutshell",
     "version": "0.20.3.1",
@@ -1830,7 +1830,7 @@
   {
     "url": "https://mint.colbitcoin.com",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:42.068589Z",
+    "last_seen": "2026-10-14T21:31:58.054507Z",
     "name": "Mint ColBitcoin",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -1885,7 +1885,7 @@
   {
     "url": "https://mint.nodenebula.com",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:57.440855Z",
+    "last_seen": "2026-10-14T21:32:12.157119Z",
     "name": "Nebula",
     "implementation": "Nutshell",
     "version": "0.20.3.1",
@@ -1942,7 +1942,7 @@
   {
     "url": "https://mint.sharegap.net",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:59.172533Z",
+    "last_seen": "2026-10-14T21:32:13.308698Z",
     "name": "Nostrodomo Mint",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -1999,7 +1999,7 @@
   {
     "url": "https://mint.nuts.cash",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:57.847027Z",
+    "last_seen": "2026-10-14T21:32:12.489035Z",
     "name": "Nuts",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -2056,7 +2056,7 @@
   {
     "url": "https://mint.lnvoltz.com",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:50.579907Z",
+    "last_seen": "2026-10-14T21:32:06.590798Z",
     "name": "Voltz Mint",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -2111,7 +2111,7 @@
   {
     "url": "https://mint.cashu.chat",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:40.585593Z",
+    "last_seen": "2026-10-14T21:31:57.117406Z",
     "name": "cashu.chat",
     "implementation": "Nutshell",
     "version": "0.20.2",
@@ -2167,7 +2167,7 @@
   {
     "url": "https://mint.gitvid.net",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:44.340386Z",
+    "last_seen": "2026-10-14T21:31:59.246222Z",
     "name": "Cashu mint",
     "implementation": "Nutshell",
     "version": "0.20.1",
@@ -2223,7 +2223,7 @@
   {
     "url": "https://cashu.21m.lol",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:30.244723Z",
+    "last_seen": "2026-10-14T21:31:48.893432Z",
     "name": "cashu.21m.lol",
     "implementation": "Nutshell",
     "version": "0.20.1",
@@ -2280,7 +2280,7 @@
   {
     "url": "https://mint.lnw.cash",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:51.729563Z",
+    "last_seen": "2026-10-14T21:32:07.660459Z",
     "name": "LNWCASH MINT",
     "implementation": "Nutshell",
     "version": "0.20.1",
@@ -2337,7 +2337,7 @@
   {
     "url": "https://mint.mjex.me",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:55.829520Z",
+    "last_seen": "2026-10-14T21:32:11.332738Z",
     "name": "mjex.me cashu mint",
     "implementation": "Nutshell",
     "version": "0.20.0",
@@ -2391,7 +2391,7 @@
   {
     "url": "https://mint.routstr.com",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:58.349286Z",
+    "last_seen": "2026-10-14T21:32:12.942810Z",
     "name": "RoutstrMint",
     "implementation": "Nutshell",
     "version": "0.20.0",
@@ -2447,7 +2447,7 @@
   {
     "url": "https://mint.28waves.com",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:38.168433Z",
+    "last_seen": "2026-10-14T21:31:55.018600Z",
     "name": "28MINT",
     "implementation": "Nutshell",
     "version": "0.19.2",
@@ -2503,7 +2503,7 @@
   {
     "url": "https://mint.mineracks.com",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:54.417237Z",
+    "last_seen": "2026-10-14T21:32:10.232695Z",
     "name": "Mineracks Mint",
     "implementation": "Nutshell",
     "version": "0.19.2",
@@ -2559,7 +2559,7 @@
   {
     "url": "https://mint.agorist.space",
     "status": "online",
-    "last_seen": "2026-10-14T16:59:38.983026Z",
+    "last_seen": "2026-10-14T21:31:55.771998Z",
     "name": "Agorist Cashu Mint",
     "implementation": "Nutshell",
     "version": "0.17.0",
@@ -2614,7 +2614,7 @@
   {
     "url": "https://rugs.cashu.exchange",
     "status": "online",
-    "last_seen": "2026-10-14T17:00:02.509310Z",
+    "last_seen": "2026-10-14T21:32:16.668286Z",
     "name": "Rugs Monthly",
     "implementation": "Nutshell",
     "version": "0.0.1",
@@ -2673,7 +2673,7 @@
   {
     "url": "https://rugs01.cashu.exchange",
     "status": "online",
-    "last_seen": "2026-10-14T17:00:03.879695Z",
+    "last_seen": "2026-10-14T21:32:17.329701Z",
     "name": "Rugs Monthly 01",
     "implementation": "Nutshell",
     "version": "0.0.1",
@@ -2729,7 +2729,7 @@
   {
     "url": "https://mint.fredix.xyz",
     "status": "offline",
-    "last_seen": "2026-10-14T16:59:44.044755Z",
+    "last_seen": "2026-10-14T21:31:59.107408Z",
     "name": "Mint fredix",
     "implementation": "cdk-mintd",
     "version": "0.17.5",
@@ -2788,7 +2788,7 @@
   {
     "url": "https://mint.wolfcoil.com",
     "status": "offline",
-    "last_seen": "2026-10-14T17:00:01.970168Z",
+    "last_seen": "2026-10-14T21:32:15.899872Z",
     "name": "peeenuts",
     "implementation": "Nutshell",
     "version": "0.21.0",
@@ -2848,7 +2848,7 @@
   {
     "url": "https://mint.solife.me",
     "status": "offline",
-    "last_seen": "2026-10-14T16:59:59.372273Z",
+    "last_seen": "2026-10-14T21:32:13.495152Z",
     "name": "Solife Mint",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -2905,7 +2905,7 @@
   {
     "url": "https://mint.unclerics.cash",
     "status": "offline",
-    "last_seen": "2026-10-14T17:00:01.098694Z",
+    "last_seen": "2026-10-14T21:32:14.936699Z",
     "name": "Uncle Ric's 2.0",
     "implementation": "Nutshell",
     "version": "0.20.3",
@@ -2961,7 +2961,7 @@
   {
     "url": "https://mint.btcforplebs.com",
     "status": "offline",
-    "last_seen": "2026-10-14T16:59:39.994137Z",
+    "last_seen": "2026-10-14T21:31:56.472702Z",
     "name": "BTCforPlebs Mint",
     "implementation": "Nutshell",
     "version": "0.20.1",
@@ -3018,7 +3018,7 @@
   {
     "url": "https://cashu.cz",
     "status": "offline",
-    "last_seen": "2026-10-14T16:59:31.866549Z",
+    "last_seen": "2026-10-14T21:31:50.616238Z",
     "name": "cashu.cz",
     "implementation": "Nutshell",
     "version": "0.20.1",
@@ -3061,7 +3061,7 @@
   {
     "url": "https://mint.endfiat.money",
     "status": "offline",
-    "last_seen": "2026-10-14T16:59:43.503610Z",
+    "last_seen": "2026-10-14T21:31:58.781892Z",
     "name": "Cashu mint",
     "implementation": "Nutshell",
     "version": "0.19.2",
@@ -3118,7 +3118,7 @@
   {
     "url": "https://mint.belgianbitcoinembassy.org",
     "status": "offline",
-    "last_seen": "2026-10-14T16:59:39.927863Z",
+    "last_seen": "2026-10-14T21:31:56.429316Z",
     "name": "BBE Cashu mint",
     "implementation": "Nutshell",
     "version": "0.18.2",
@@ -3174,7 +3174,7 @@
   {
     "url": "https://lnb.bolverker.com/cashu/api/v1/GZjPXyQXsgnZEgKZsLRQyy",
     "status": "offline",
-    "last_seen": "2026-10-14T16:59:34.122398Z",
+    "last_seen": "2026-10-14T21:31:52.280787Z",
     "name": "Mycelium Mint",
     "implementation": "Nutshell",
     "version": "0.18.2",
@@ -3216,7 +3216,7 @@
   {
     "url": "https://nofee.testnut.cashu.space",
     "status": "offline",
-    "last_seen": "2026-10-14T17:00:02.018091Z",
+    "last_seen": "2026-10-14T21:32:15.969403Z",
     "name": "Testnut feeless mint",
     "implementation": "Nutshell",
     "version": "0.18.2",
@@ -3276,7 +3276,7 @@
   {
     "url": "https://mint.0xchat.com",
     "status": "offline",
-    "last_seen": "2026-10-14T16:59:34.938623Z",
+    "last_seen": "2026-10-14T21:31:52.836043Z",
     "name": "0xchat mint",
     "implementation": "Nutshell",
     "version": "0.18.1",
@@ -3332,7 +3332,7 @@
   {
     "url": "https://mint.lnserver.com",
     "status": "offline",
-    "last_seen": "2026-10-14T16:59:50.060675Z",
+    "last_seen": "2026-10-14T21:32:06.204893Z",
     "name": "LNServer Mint",
     "implementation": "Nutshell",
     "version": "0.18.1",
@@ -3388,7 +3388,7 @@
   {
     "url": "https://mint.cypherflow.ai",
     "status": "offline",
-    "last_seen": "2026-10-14T16:59:42.698524Z",
+    "last_seen": "2026-10-14T21:31:58.396813Z",
     "name": "Cypherflow Mint",
     "implementation": "Nutshell",
     "version": "0.18.0",
@@ -3444,7 +3444,7 @@
   {
     "url": "https://mint.instant.gr",
     "status": "offline",
-    "last_seen": "2026-10-14T16:59:46.328450Z",
+    "last_seen": "2026-10-14T21:32:00.949553Z",
     "name": "Instant Mint",
     "implementation": "Nutshell",
     "version": "0.18.0",
