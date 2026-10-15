@@ -1,0 +1,5 @@
+# Community-submitted Cashu mints, one https:// URL per line.
+#
+# Entries are added by pull requests opened from approved "Suggest a mint"
+# issues (see .github/workflows/mint-submission.yml). scripts/update_mints.py
+# probes every URL here alongside mints discovered from awesome-cashu.

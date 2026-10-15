@@ -4,6 +4,14 @@ on:
   schedule:
     - cron: '0 */6 * * *'  # every 6 hours
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'data/manual_mints.txt'  # pick up newly approved mint submissions right away
+
+concurrency:
+  group: update-mints
+  cancel-in-progress: false
 
 permissions:
   contents: write

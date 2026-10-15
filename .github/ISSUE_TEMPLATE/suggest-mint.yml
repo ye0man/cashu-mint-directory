@@ -1,0 +1,35 @@
+name: Suggest a mint
+description: Submit a Cashu mint for inclusion in the directory.
+title: "Add mint: "
+labels: ["mint-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a mint! After you submit, a bot probes the mint's `/v1/info`
+        endpoint and posts the result here. A maintainer then reviews it and, if approved,
+        a pull request adds it to the directory.
+
+        Requirements: a public `https://` URL that returns a valid [NUT-06](https://cashubtc.github.io/nuts/06/) response.
+  - type: input
+    id: mint_url
+    attributes:
+      label: Mint URL
+      description: The mint's base URL (without `/v1/info`).
+      placeholder: https://mint.example.com
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Optional. Operator, contact details, or anything else reviewers should know.
+    validations:
+      required: false
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: I operate this mint, or it is publicly advertised by its operator.
+          required: false

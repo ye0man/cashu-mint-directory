@@ -4,775 +4,163 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cashu Mint Directory</title>
-  <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet" />
-  <script src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
-  <style>
-    :root {
-      --bg: #0f1115;
-      --panel: #1b1e25;
-      --surface: #181a21;
-      --text: #f0f2f7;
-      --muted: #9aa4b5;
-      --accent: #ffae00;
-      --border: #2e323d;
-      --link: #7ac8ff;
-      --header-text: #101218;
-      --header-bg: #d4d8e3;
-      --hover-bg: #22262f;
-      --even-row: #161922;
-      --odd-row: #0f1115;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    header {
-      padding: 1.5rem 1rem;
-      border-bottom: 1px solid var(--border);
-      background: var(--panel);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    h1 {
-      font-size: 1.35rem;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .logo {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--accent);
-      display: inline-block;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: 0.85rem;
-      margin: 0.25rem 0 0 2.25rem;
-    }
-
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .filters {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      flex-wrap: wrap;
-      padding: 0.75rem 1rem;
-      background: var(--panel);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      min-width: 10rem;
-    }
-
-    .filter-group label {
-      color: var(--muted);
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    .multi-select {
-      position: relative;
-      min-width: 14rem;
-      max-width: 20rem;
-    }
-
-    .multi-select-trigger {
-      width: 100%;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .multi-select-trigger::after {
-      content: "▼";
-      font-size: 0.65rem;
-      color: var(--muted);
-      flex-shrink: 0;
-    }
-
-    .multi-select.open .multi-select-trigger::after {
-      content: "▲";
-    }
-
-    .multi-select-dropdown {
-      position: absolute;
-      top: calc(100% + 0.35rem);
-      left: 0;
-      z-index: 100;
-      min-width: 100%;
-      width: max-content;
-      max-width: 28rem;
-      max-height: 18rem;
-      overflow-y: auto;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 0.4rem;
-      padding: 0.4rem;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-      display: none;
-    }
-
-    .multi-select.open .multi-select-dropdown {
-      display: block;
-    }
-
-    .multi-select-option {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.35rem 0.5rem;
-      border-radius: 0.3rem;
-      cursor: pointer;
-      font-size: 0.9rem;
-      white-space: nowrap;
-    }
-
-    .multi-select-option:hover {
-      background: var(--hover-bg);
-    }
-
-    .multi-select-option input[type="checkbox"] {
-      flex-shrink: 0;
-    }
-
-    .selected-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-top: 0.35rem;
-      min-height: 1.4rem;
-    }
-
-    .selected-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.15rem 0.45rem;
-      border-radius: 0.25rem;
-      background: var(--accent);
-      color: #101218;
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-
-    .selected-tag button {
-      background: transparent;
-      border: none;
-      padding: 0;
-      margin: 0;
-      color: inherit;
-      font-size: 0.9rem;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    .checkbox-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      color: var(--text);
-      font-size: 0.9rem;
-      cursor: pointer;
-      margin-top: 1.35rem;
-    }
-
-    input[type="checkbox"] {
-      accent-color: var(--accent);
-      width: 1rem;
-      height: 1rem;
-      cursor: pointer;
-    }
-
-    input[type="search"], button {
-      padding: 0.45rem 0.7rem;
-      border-radius: 0.4rem;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font-size: 0.9rem;
-    }
-
-    button {
-      cursor: pointer;
-      background: #2b2f38;
-      transition: background 0.15s, border-color 0.15s;
-    }
-
-    button:hover { background: #363b46; border-color: #4a5060; }
-
-    main { padding: 1rem; }
-
-    #mints-table { margin-top: 0.75rem; }
-
-    .tabulator { border: 1px solid var(--border); border-radius: 0.4rem; background: var(--bg); }
-
-    .tabulator .tabulator-header {
-      background: var(--header-bg);
-      color: var(--header-text);
-      border-color: var(--border);
-      font-weight: 700;
-    }
-
-    .tabulator .tabulator-header .tabulator-col { border-color: #b8beca; }
-    .tabulator .tabulator-header .tabulator-col-content { padding: 0.65rem 0.5rem; }
-
-    .tabulator .tabulator-header .tabulator-arrow {
-      border-bottom-color: var(--header-text);
-    }
-
-    .tabulator .tabulator-tableholder .tabulator-table {
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    .tabulator-row { border-color: var(--border); }
-    .tabulator-row.tabulator-row-even { background: var(--even-row); }
-    .tabulator-row.tabulator-row-odd { background: var(--odd-row); }
-    .tabulator-row:hover { background: var(--hover-bg); }
-
-    .tabulator-cell {
-      padding: 0.5rem;
-      border-color: var(--border);
-    }
-
-    .tabulator-cell a {
-      color: var(--link);
-      text-decoration: none;
-    }
-    .tabulator-cell a:hover { text-decoration: underline; }
-
-    .tabulator .tabulator-footer {
-      background: var(--panel);
-      border-color: var(--border);
-      color: var(--text);
-    }
-
-    .tabulator .tabulator-footer .tabulator-page {
-      color: var(--text);
-      background: var(--surface);
-      border-color: var(--border);
-    }
-
-    .tabulator .tabulator-footer .tabulator-page.active {
-      color: var(--header-text);
-      background: var(--header-bg);
-      border-color: var(--header-bg);
-    }
-
-    .tabulator .tabulator-footer .tabulator-page:not(.disabled):hover {
-      background: var(--hover-bg);
-    }
-
-    .unit-badge {
-      display: inline-block;
-      padding: 0.15rem 0.4rem;
-      border-radius: 0.25rem;
-      background: #2b2f38;
-      border: 1px solid var(--border);
-      font-size: 0.75rem;
-      margin-right: 0.25rem;
-      white-space: nowrap;
-    }
-
-    .unit-badge-btc {
-      background: rgba(247, 147, 26, 0.15);
-      color: #ffb347;
-      border-color: #f7931a;
-    }
-
-    .unit-badge-usd {
-      background: rgba(34, 197, 94, 0.15);
-      color: #4ade80;
-      border-color: #22c55e;
-    }
-
-    .unit-badge-eur {
-      background: rgba(59, 130, 246, 0.15);
-      color: #60a5fa;
-      border-color: #3b82f6;
-    }
-
-    .methods-cell {
-      white-space: normal;
-      line-height: 1.6;
-    }
-
-    .method-name {
-      cursor: help;
-      border-bottom: 1px dashed var(--muted);
-    }
-
-    .contact-cell a {
-      margin: 0 0.15rem;
-    }
-
-    .mint-logo {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .disabled-method {
-      text-decoration: line-through;
-      opacity: 0.6;
-    }
-
-    .disabled-badge {
-      background: #5c2b2b;
-      color: #ff9e9e;
-      border-color: #8a3b3b;
-    }
-
-    footer {
-      padding: 1rem;
-      color: var(--muted);
-      font-size: 0.8rem;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div>
-      <h1><span class="logo"></span> Cashu Mint Directory</h1>
-      <p class="subtitle">Live-ish list of Cashu mints with info pulled from each mint’s <code>/v1/info</code> endpoint.</p>
-    </div>
-    <div class="toolbar">
-      <input id="search" type="search" placeholder="Search mints..." />
-      <button id="dl-csv">Download CSV</button>
-      <button id="dl-json">Download JSON</button>
-    </div>
-  </header>
-
-  <main>
-    <div class="filters">
-      <div class="filter-group">
-        <label>Supported NUTs</label>
-        <div class="multi-select" id="ms-nuts">
-          <button class="multi-select-trigger" type="button">Select NUTs…</button>
-          <div class="multi-select-dropdown"></div>
-          <div class="selected-tags"></div>
-        </div>
-      </div>
-      <div class="filter-group">
-        <label>Units</label>
-        <div class="multi-select" id="ms-units">
-          <button class="multi-select-trigger" type="button">Select units…</button>
-          <div class="multi-select-dropdown"></div>
-          <div class="selected-tags"></div>
-        </div>
-      </div>
-      <div class="filter-group">
-        <label class="checkbox-label">
-          <input id="include-stale" type="checkbox" />
-          Include stale / offline mints
-        </label>
-      </div>
-    </div>
-    <div id="mints-table"></div>
-  </main>
-
-  <footer>
-    Data sourced from <code>awesome-cashu</code>, MintRadar, and direct <code>/v1/info</code> requests.
-  </footer>
+  <meta name="description" content="Interactive directory of Cashu ecash mints. Filter by supported NUTs, units, payment methods, implementation, version, and freshness." />
+  <meta name="theme-color" content="#f4efe6" />
+  <meta property="og:title" content="Cashu Mint Directory" />
+  <meta property="og:description" content="Interactive directory of Cashu ecash mints, probed every 6 hours via /v1/info." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ye0man.github.io/cashu-mint-directory/" />
+  <meta property="og:image" content="https://ye0man.github.io/cashu-mint-directory/cashu_liquid.jpg" />
+  <link rel="icon" href="cashu_liquid.jpg" type="image/jpeg" />
 
   <script>
-    function semverSorter(a, b) {
-      const va = (a || "").replace(/^[^0-9]*/, "").replace(/-.*/, "").split(".").map(n => parseInt(n, 10) || 0);
-      const vb = (b || "").replace(/^[^0-9]*/, "").replace(/-.*/, "").split(".").map(n => parseInt(n, 10) || 0);
-      for (let i = 0; i < Math.max(va.length, vb.length); i++) {
-        const na = va[i] || 0, nb = vb[i] || 0;
-        if (na !== nb) return na - nb;
-      }
-      return String(a).localeCompare(String(b));
-    }
-
-    function escapeHtml(str) {
-      return String(str ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
-    }
-
-    const NUT_DESCRIPTIONS = {
-      0: "Cryptography and Models",
-      1: "Mint public keys",
-      2: "Keysets and fees",
-      3: "Swapping tokens",
-      4: "Minting tokens",
-      5: "Melting tokens",
-      6: "Mint info",
-      7: "Token state check",
-      8: "Overpaid Lightning fees",
-      9: "Signature restore",
-      10: "Spending conditions",
-      11: "Pay-To-Pubkey (P2PK)",
-      12: "DLEQ proofs",
-      13: "Deterministic secrets",
-      14: "Hashed Timelock Contracts (HTLCs)",
-      15: "Partial multi-path payments (MPP)",
-      16: "Animated QR codes",
-      17: "WebSocket subscriptions",
-      18: "Payment requests",
-      19: "Cached Responses",
-      20: "Signature on Mint Quote",
-      21: "Clear authentication",
-      22: "Blind authentication",
-      23: "Payment Method: BOLT11",
-      24: "HTTP 402 Payment Required",
-      25: "Payment Method: BOLT12",
-      26: "Payment Request Bech32m Encoding",
-      27: "Nostr Mint Backup",
-      28: "Pay to Blinded Key (P2BK)",
-      29: "Batched Mint",
-      30: "Payment Method: Onchain"
-    };
-
-    function logoFormatter(cell) {
-      const row = cell.getRow().getData();
-      const url = cell.getValue() || "cashu_liquid.jpg";
-      const tooltip = escapeHtml(row.description || "");
-      return `<img class="mint-logo" src="${escapeHtml(url)}" alt="" title="${tooltip}" onerror="this.src='cashu_liquid.jpg'; this.onerror=null;">`;
-    }
-
-    function mintFormatter(cell) {
-      const row = cell.getRow().getData();
-      const name = escapeHtml(cell.getValue());
-      const url = row.url || "";
-      const tooltip = escapeHtml(row.description_long || row.description || "");
-      return `<a href="${url}" target="_blank" rel="noopener" title="${tooltip}">${name}</a>`;
-    }
-
-    function scoreFormatter(cell) {
-      const value = cell.getValue();
-      if (value === "" || value == null) return "";
-      const color = value >= 80 ? "#4ade80" : value >= 50 ? "#facc15" : "#f87171";
-      return `<span style="color:${color};font-weight:600">${value}</span>`;
-    }
-
-    function unitBadgeClass(unit) {
-      const u = unit.toLowerCase();
-      if (u === "sat" || u === "msat") return "unit-badge-btc";
-      if (u === "usd") return "unit-badge-usd";
-      if (u === "eur" || u === "euro") return "unit-badge-eur";
-      return "";
-    }
-
-    function badgeFormatter(cell) {
-      const value = cell.getValue();
-      if (!value) return "";
-      return value.split(",").map(v => {
-        const unit = v.trim();
-        const cls = unitBadgeClass(unit);
-        return `<span class="unit-badge ${cls}">${escapeHtml(unit)}</span>`;
-      }).join(" ");
-    }
-
-    function capitalizeFirst(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-
-    function methodsFormatter(cell, formatterParams) {
-      const row = cell.getRow().getData();
-      const methods = cell.getValue() || [];
-      const disabled = formatterParams && formatterParams.disabledField && row[formatterParams.disabledField];
-      if (!methods.length) {
-        return disabled ? '<span class="unit-badge disabled-badge">disabled</span>' : "";
-      }
-      const methodClass = disabled ? "method-name disabled-method" : "method-name";
-      const parts = methods.map(m => {
-        const name = capitalizeFirst(String(m.method || ""));
-        const units = (m.units || []).join(", ");
-        return `<span class="${methodClass}" title="${escapeHtml(units)}">${escapeHtml(name)}</span>`;
-      });
-      let html = parts.join(", ");
-      if (disabled) {
-        html += ' <span class="unit-badge disabled-badge">disabled</span>';
-      }
-      return `<span class="methods-cell">${html}</span>`;
-    }
-
-    function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email));
-    }
-
-    function isValidNostr(key) {
-      return /^npub1[ac-hj-np-z02-9]{58}$/.test(String(key));
-    }
-
-    function otherContactUrl(method, info) {
-      const m = String(method).toLowerCase();
-      const i = String(info).trim();
-      if (m === "telegram") return `https://t.me/${encodeURIComponent(i.replace(/^@/, ""))}`;
-      if (m === "github") return `https://github.com/${encodeURIComponent(i.replace(/^@/, ""))}`;
-      if (m === "matrix") return `https://matrix.to/#/${encodeURIComponent(i)}`;
-      if (m === "website" || m === "url" || m === "web") return i.startsWith("http") ? i : `https://${i}`;
-      return null;
-    }
-
-    function contactFormatter(cell) {
-      const row = cell.getRow().getData();
-      const links = [];
-
-      if (row.email && isValidEmail(row.email)) {
-        links.push(`<a href="mailto:${escapeHtml(row.email)}" target="_blank" rel="noopener">Email</a>`);
-      }
-
-      if (row.x) {
-        const handle = String(row.x).trim();
-        let url;
-        if (/^https?:\/\/(twitter|x)\.com\//i.test(handle)) {
-          url = handle;
-        } else {
-          url = `https://x.com/${encodeURIComponent(handle.replace(/^@/, ""))}`;
-        }
-        links.push(`<a href="${url}" target="_blank" rel="noopener">X</a>`);
-      }
-
-      if (row.nostr && isValidNostr(row.nostr)) {
-        links.push(`<a href="https://njump.me/${escapeHtml(row.nostr)}" target="_blank" rel="noopener">Nostr</a>`);
-      }
-
-      if (row.other_contact) {
-        const segments = String(row.other_contact).split(";").map(s => s.trim()).filter(Boolean);
-        let fallbackIndex = 1;
-        segments.forEach(segment => {
-          const colonIdx = segment.indexOf(":");
-          if (colonIdx > 0) {
-            const method = segment.slice(0, colonIdx).trim();
-            const info = segment.slice(colonIdx + 1).trim();
-            const url = otherContactUrl(method, info);
-            if (url) {
-              const label = escapeHtml(capitalizeFirst(method));
-              links.push(`<a href="${url}" target="_blank" rel="noopener">${label}</a>`);
-            } else {
-              links.push(`<span title="${escapeHtml(segment)}">Misc${fallbackIndex++}</span>`);
-            }
-          } else {
-            links.push(`<span title="${escapeHtml(segment)}">Misc${fallbackIndex++}</span>`);
-          }
-        });
-      }
-
-      if (!links.length) return "";
-      return `<span class="contact-cell">${links.join(" | ")}</span>`;
-    }
-
-    function makeRowFilter(searchValue, nutValues, unitValues, includeStale) {
-      return (rowData) => {
-        if (!includeStale && rowData.status !== "online") return false;
-
-        if (nutValues.length) {
-          const nuts = rowData.nuts || [];
-          if (!nutValues.every(n => nuts.includes(Number(n)))) return false;
-        }
-
-        if (unitValues.length) {
-          const units = rowData.units || [];
-          if (!unitValues.some(u => units.includes(u))) return false;
-        }
-
-        if (searchValue && searchValue.trim() !== "") {
-          const term = searchValue.trim().toLowerCase();
-          const text = [
-            rowData.name || "",
-            rowData.url || "",
-            rowData.implementation || ""
-          ].join(" ").toLowerCase();
-          if (!text.includes(term)) return false;
-        }
-
-        return true;
-      };
-    }
-
-    function createMultiSelect(containerId, options, onChange) {
-      const container = document.getElementById(containerId);
-      const trigger = container.querySelector(".multi-select-trigger");
-      const dropdown = container.querySelector(".multi-select-dropdown");
-      const tagsArea = container.querySelector(".selected-tags");
-      const selected = new Set();
-
-      // Normalize options to {value, label} objects.
-      const normalizedOptions = options.map(opt => {
-        if (opt && typeof opt === "object" && "value" in opt) {
-          return { value: String(opt.value), label: opt.label };
-        }
-        return { value: String(opt), label: String(opt) };
-      });
-      const labelByValue = new Map(normalizedOptions.map(o => [o.value, o.label]));
-
-      function renderTags() {
-        tagsArea.innerHTML = "";
-        selected.forEach(value => {
-          const label = labelByValue.get(value) || value;
-          const tag = document.createElement("span");
-          tag.className = "selected-tag";
-          tag.innerHTML = `${escapeHtml(label)} <button type="button" aria-label="Remove ${escapeHtml(label)}">×</button>`;
-          tag.querySelector("button").addEventListener("click", (e) => {
-            e.stopPropagation();
-            selected.delete(value);
-            const cb = container.querySelector(`input[value="${CSS.escape(value)}"]`);
-            if (cb) cb.checked = false;
-            renderTags();
-            onChange(Array.from(selected));
-          });
-          tagsArea.appendChild(tag);
-        });
-      }
-
-      normalizedOptions.forEach(opt => {
-        const label = document.createElement("label");
-        label.className = "multi-select-option";
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.value = opt.value;
-        checkbox.addEventListener("change", () => {
-          if (checkbox.checked) selected.add(opt.value);
-          else selected.delete(opt.value);
-          renderTags();
-          onChange(Array.from(selected));
-        });
-        label.appendChild(checkbox);
-        label.appendChild(document.createTextNode(opt.label));
-        dropdown.appendChild(label);
-      });
-
-      trigger.addEventListener("click", (e) => {
-        e.stopPropagation();
-        // Close other dropdowns.
-        document.querySelectorAll(".multi-select.open").forEach(el => {
-          if (el !== container) el.classList.remove("open");
-        });
-        container.classList.toggle("open");
-      });
-
-      // Close dropdown when clicking outside.
-      document.addEventListener("click", (e) => {
-        if (!container.contains(e.target)) container.classList.remove("open");
-      });
-
-      return {
-        getValues: () => Array.from(selected),
-        setValues: (values) => {
-          selected.clear();
-          values.forEach(v => selected.add(String(v)));
-          container.querySelectorAll("input[type='checkbox']").forEach(cb => {
-            cb.checked = selected.has(cb.value);
-          });
-          renderTags();
-        }
-      };
-    }
-
-    function applyFilters(table, searchValue, nutsSelect, unitsSelect) {
-      const includeStale = document.getElementById("include-stale").checked;
-      const nutValues = nutsSelect.getValues();
-      const unitValues = unitsSelect.getValues();
-      const searchActive = searchValue && searchValue.trim() !== "";
-
-      if (includeStale && !nutValues.length && !unitValues.length && !searchActive) {
-        table.clearFilter();
-      } else {
-        table.setFilter(makeRowFilter(searchValue, nutValues, unitValues, includeStale));
-      }
-    }
-
-    fetch("mints.json?v=4")
-      .then(r => r.json())
-      .then(data => {
-        // Collect all optional NUTs and units for filter dropdowns.
-        const allNuts = Array.from(new Set(data.flatMap(m => m.nuts || []))).sort((a, b) => a - b);
-        const allUnits = Array.from(new Set(data.flatMap(m => m.units || []))).sort();
-
-        const table = new Tabulator("#mints-table", {
-          data: data,
-          layout: "fitColumns",
-          resizableColumns: true,
-          movableColumns: true,
-          pagination: true,
-          paginationSize: 100,
-          paginationSizeSelector: [25, 50, 100, true],
-          initialSort: [
-            { column: "stale_score", dir: "desc" },
-            { column: "implementation", dir: "asc" },
-            { column: "version", dir: "desc" }
-          ],
-          columns: [
-            { title: "", field: "icon_url", formatter: logoFormatter, headerSort: false, hozAlign: "center", width: 50 },
-            { title: "Mint", field: "name", formatter: mintFormatter, sorter: "string", widthGrow: 1.5 },
-            { title: "Type", field: "implementation", sorter: "string", widthGrow: 1 },
-            { title: "Version", field: "version", sorter: semverSorter, widthGrow: 0.8 },
-            { title: "Units", field: "units_display", formatter: badgeFormatter, sorter: "string", widthGrow: 0.6 },
-            { title: "Mint methods", field: "mint_methods", formatter: methodsFormatter, formatterParams: { disabledField: "nut4_disabled" }, sorter: "string", widthGrow: 0.8, minWidth: 160 },
-            { title: "Melt methods", field: "melt_methods", formatter: methodsFormatter, formatterParams: { disabledField: "nut5_disabled" }, sorter: "string", widthGrow: 0.8, minWidth: 160 },
-            { title: "Freshness", field: "stale_score", formatter: scoreFormatter, sorter: "number", hozAlign: "center", width: 90 },
-            { title: "Status", field: "status", sorter: "string", hozAlign: "center", width: 90 },
-            { title: "Contact", field: "email", formatter: contactFormatter, sorter: "string", widthGrow: 1.2 }
-          ]
-        });
-
-        const nutOptions = allNuts.map(n => {
-          const num = String(n);
-          const desc = NUT_DESCRIPTIONS[n] || "";
-          return { value: num, label: desc ? `${num}: ${desc}` : num };
-        });
-        const nutsSelect = createMultiSelect("ms-nuts", nutOptions, () => {
-          applyFilters(table, document.getElementById("search").value, nutsSelect, unitsSelect);
-        });
-        const unitsSelect = createMultiSelect("ms-units", allUnits, () => {
-          applyFilters(table, document.getElementById("search").value, nutsSelect, unitsSelect);
-        });
-
-        document.getElementById("search").addEventListener("input", function(e) {
-          applyFilters(table, e.target.value, nutsSelect, unitsSelect);
-        });
-
-        document.getElementById("include-stale").addEventListener("change", function() {
-          applyFilters(table, document.getElementById("search").value, nutsSelect, unitsSelect);
-        });
-
-        // Default: hide stale/offline mints.
-        applyFilters(table, "", nutsSelect, unitsSelect);
-
-        document.getElementById("dl-csv").addEventListener("click", () => table.download("csv", "cashu-mints.csv"));
-        document.getElementById("dl-json").addEventListener("click", () => table.download("json", "cashu-mints.json"));
-      })
-      .catch(err => {
-        document.getElementById("mints-table").innerHTML = `<p style="color:#ff6b6b">Failed to load mint data: ${err.message}</p>`;
-      });
+    // Compact, transparent layout when embedded (e.g. on jakedat.com).
+    try { if (window.self !== window.top) document.documentElement.classList.add("embedded"); }
+    catch (e) { document.documentElement.classList.add("embedded"); }
   </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/tabulator-tables@6.6.1/dist/css/tabulator.min.css"
+        integrity="sha384-xnEc77Tm0GtDMa5SK6wMci55eU0E+KodAqTli8SS1h1yHo/bRbtEZ+gTgwCEs3d6"
+        crossorigin="anonymous" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body class="graph-paper">
+  <div class="page ruled-margins">
+    <header class="site-header">
+      <div class="brand">
+        <img class="brand-logo" src="cashu_liquid.jpg" alt="" width="44" height="44" />
+        <div>
+          <p class="small-caps"><span class="hash">0x</span>cashu-mint-directory</p>
+          <h1>Cashu Mint Directory</h1>
+          <p class="subtitle">Every known Cashu mint, probed every six hours via its <code>/v1/info</code> endpoint.</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="suggest-open" class="btn btn-primary" type="button">+ Suggest a mint</button>
+        <button id="dl-csv" class="btn" type="button">CSV</button>
+        <button id="dl-json" class="btn" type="button">JSON</button>
+      </div>
+    </header>
+
+    <section class="stats" id="stats" aria-label="Directory summary">
+      <!-- populated by app.js -->
+    </section>
+
+    <section class="filters" aria-label="Filters">
+      <div class="filters-row">
+        <div class="filter-group filter-search">
+          <label class="small-caps" for="search">Search</label>
+          <input id="search" type="search" placeholder="Name, URL, implementation&hellip;" autocomplete="off" />
+        </div>
+        <div class="filter-group">
+          <span class="small-caps" id="lbl-nuts">Supports NUTs <span class="hint">(all of)</span></span>
+          <div class="multi-select" id="ms-nuts" data-placeholder="Any NUT"></div>
+        </div>
+        <div class="filter-group">
+          <span class="small-caps" id="lbl-units">Units</span>
+          <div class="multi-select" id="ms-units" data-placeholder="Any unit"></div>
+        </div>
+        <div class="filter-group">
+          <span class="small-caps" id="lbl-impl">Type</span>
+          <div class="multi-select" id="ms-impl" data-placeholder="Any implementation"></div>
+        </div>
+        <div class="filter-group">
+          <span class="small-caps" id="lbl-version">Version</span>
+          <div class="multi-select" id="ms-version" data-placeholder="Any version"></div>
+        </div>
+        <div class="filter-group">
+          <span class="small-caps" id="lbl-mint">Mint methods <span class="hint">(NUT-04)</span></span>
+          <div class="multi-select" id="ms-mint" data-placeholder="Any method"></div>
+        </div>
+        <div class="filter-group">
+          <span class="small-caps" id="lbl-melt">Melt methods <span class="hint">(NUT-05)</span></span>
+          <div class="multi-select" id="ms-melt" data-placeholder="Any method"></div>
+        </div>
+      </div>
+      <div class="filters-row filters-row-secondary">
+        <div class="filter-group filter-range">
+          <label class="small-caps" for="min-score">Min. freshness <output id="min-score-out" for="min-score">0</output></label>
+          <input id="min-score" type="range" min="0" max="100" step="5" value="0" />
+        </div>
+        <label class="checkbox-label">
+          <input id="latest-only" type="checkbox" />
+          Latest version per implementation only
+        </label>
+        <label class="checkbox-label">
+          <input id="include-offline" type="checkbox" />
+          Include offline mints
+        </label>
+        <div class="filters-meta">
+          <span id="result-count" class="mono" aria-live="polite"></span>
+          <button id="clear-filters" class="btn btn-ghost" type="button">Clear filters</button>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <div id="mints-table"></div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div>
+          <p class="small-caps"><span class="hash">0x</span>resources</p>
+          <ul class="resource-list">
+            <li><a href="https://cashubtc.github.io/nuts/" target="_blank" rel="noopener">NUTs specification</a> <span class="muted">&mdash; the Cashu protocol spec</span></li>
+            <li><a href="https://audit.8333.space" target="_blank" rel="noopener">Mint Auditor</a> <span class="muted">&mdash; reliability audits of public mints</span></li>
+            <li><a href="https://docs.cashu.space" target="_blank" rel="noopener">Cashu docs</a> <span class="muted">&mdash; guides for users and mint operators</span></li>
+            <li><a href="https://cashu.space" target="_blank" rel="noopener">cashu.space</a> <span class="muted">&mdash; project home</span></li>
+            <li><a href="https://github.com/cashubtc/awesome-cashu" target="_blank" rel="noopener">awesome-cashu</a> <span class="muted">&mdash; wallets, mints, libraries</span></li>
+            <li><a href="https://github.com/cashubtc" target="_blank" rel="noopener">cashubtc on GitHub</a> <span class="muted">&mdash; Nutshell, CDK, cashu-ts</span></li>
+          </ul>
+        </div>
+        <div>
+          <p class="small-caps"><span class="hash">0x</span>about-the-data</p>
+          <p class="muted">
+            Mints are discovered from <a href="https://github.com/cashubtc/awesome-cashu" target="_blank" rel="noopener">awesome-cashu</a>,
+            community submissions, and previously seen URLs, then probed directly. Freshness (0&ndash;100) combines uptime,
+            optional-NUT coverage, version age, contact info, and unit discoverability.
+            <a href="https://github.com/ye0man/cashu-mint-directory#freshness-scoring" target="_blank" rel="noopener">Scoring details</a>.
+          </p>
+          <p class="footer-meta mono">
+            <span>last probe <span id="last-probe">&mdash;</span></span>
+            <span>&middot;</span>
+            <a href="https://github.com/ye0man/cashu-mint-directory" target="_blank" rel="noopener">source</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <dialog id="suggest-dialog" aria-labelledby="suggest-title">
+    <form id="suggest-form" method="dialog">
+      <p class="small-caps"><span class="hash">0x</span>suggest-a-mint</p>
+      <h2 id="suggest-title">Suggest a mint</h2>
+      <p class="muted">
+        Submissions open a GitHub issue. A bot probes the mint's <code>/v1/info</code> and reports back; once a maintainer
+        approves, a pull request adds it to the directory.
+      </p>
+      <label class="small-caps" for="suggest-url">Mint URL</label>
+      <input id="suggest-url" name="url" type="url" required placeholder="https://mint.example.com" autocomplete="off" />
+      <label class="small-caps" for="suggest-notes">Notes <span class="hint">(optional)</span></label>
+      <textarea id="suggest-notes" name="notes" rows="3" placeholder="Operator, contact, anything useful&hellip;"></textarea>
+      <div id="suggest-check" class="suggest-check" aria-live="polite"></div>
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-ghost" id="suggest-cancel">Cancel</button>
+        <button type="button" class="btn" id="suggest-test">Test mint</button>
+        <button type="submit" class="btn btn-primary" id="suggest-submit">Open GitHub issue &rarr;</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/tabulator-tables@6.6.1/dist/js/tabulator.min.js"
+          integrity="sha384-G2ks3Wc8ERwZQbUnD+D54IZmFUlgMENIYP7tgDtz5ANc7yNyu+z0+4qn7Iit8jsH"
+          crossorigin="anonymous"></script>
+  <script src="assets/app.js"></script>
 </body>
 </html>
