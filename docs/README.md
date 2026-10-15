@@ -1,18 +1,14 @@
 # Cashu Mint Directory
 
-This branch hosts the interactive Cashu mint directory.
+This folder is the GitHub Pages site for the interactive Cashu mint directory.
 
 Visit the live table:
 
 **[https://ye0man.github.io/cashu-mint-directory/](https://ye0man.github.io/cashu-mint-directory/)**
 
-The table is built with [Tabulator](https://tabulator.info/) and fed by [`mints.json`](./mints.json). It supports sorting, filtering, column resizing, reordering, CSV/JSON export, and pagination.
+- `index.html`: page shell
+- `assets/styles.css`: styles (shared design system with jakedat.com)
+- `assets/app.js`: table, filters, summary cards, and the *Suggest a mint* dialog
+- `mints.json`: data, regenerated every 6 hours by GitHub Actions
 
-New filters include:
-
-- **Supported NUTs** multi-select: show mints that support every selected NUT.
-- **Units** multi-select: filter by supported currency units.
-- **Stale/offline toggle**: hide less-maintained mints by default.
-
-Data is updated automatically via GitHub Actions every 6 hours.
-
+See the [repository README](../README.md) for features, data fields, and the mint submission flow.

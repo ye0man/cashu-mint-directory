@@ -1,0 +1,170 @@
+name: Mint submission
+
+# Flow:
+#   1. Someone opens a "Suggest a mint" issue (label: mint-submission).
+#   2. `validate` probes the mint and posts/updates a single report comment.
+#   3. A maintainer (owner/member/collaborator) comments `approved`.
+#   4. `approve` re-validates, adds the URL to data/manual_mints.txt on a
+#      branch, and opens a pull request that closes the issue.
+#
+# Untrusted input (issue body, comment body) is only ever passed through
+# environment variables, never interpolated into scripts.
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: mint-submission-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  REPO: ${{ github.repository }}
+  ISSUE: ${{ github.event.issue.number }}
+
+jobs:
+  validate:
+    if: >-
+      github.event_name == 'issues' &&
+      github.event.issue.state == 'open' &&
+      contains(github.event.issue.labels.*.name, 'mint-submission')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate submission
+        id: check
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python scripts/mint_submission.py validate --report mint-report.md
+
+      - name: Post or update report comment
+        run: |
+          id=$(gh api "repos/$REPO/issues/$ISSUE/comments" --paginate \
+                 --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | contains("<!-- mint-submission-bot -->"))) | .id' | tail -n 1)
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/$REPO/issues/comments/$id" -F body=@mint-report.md > /dev/null
+          else
+            gh api -X POST "repos/$REPO/issues/$ISSUE/comments" -F body=@mint-report.md > /dev/null
+          fi
+
+      - name: Label result
+        env:
+          VALID: ${{ steps.check.outputs.valid }}
+        run: |
+          if [ "$VALID" = "true" ]; then
+            gh issue edit "$ISSUE" --repo "$REPO" --add-label validated --remove-label needs-attention || true
+          else
+            gh issue edit "$ISSUE" --repo "$REPO" --add-label needs-attention --remove-label validated || true
+          fi
+
+  approve:
+    if: >-
+      github.event_name == 'issue_comment' &&
+      !github.event.issue.pull_request &&
+      github.event.issue.state == 'open' &&
+      contains(github.event.issue.labels.*.name, 'mint-submission') &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association) &&
+      contains(github.event.comment.body, 'approved')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require an exact "approved" comment
+        id: gate
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body }}
+        run: |
+          normalized=$(printf '%s' "$COMMENT_BODY" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:].!')
+          if [ "$normalized" = "approved" ]; then
+            echo "approved=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Comment is not an approval; skipping."
+            echo "approved=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.approved == 'true'
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.approved == 'true'
+        with:
+          python-version: '3.12'
+
+      - name: Re-validate submission
+        id: check
+        if: steps.gate.outputs.approved == 'true'
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python scripts/mint_submission.py validate --report mint-report.md
+
+      - name: Report failed re-validation
+        if: steps.gate.outputs.approved == 'true' && steps.check.outputs.valid != 'true'
+        run: |
+          {
+            echo "Could not open a pull request: the submission no longer passes validation."
+            echo
+            cat mint-report.md
+          } > reply.md
+          gh api -X POST "repos/$REPO/issues/$ISSUE/comments" -F body=@reply.md > /dev/null
+          gh issue edit "$ISSUE" --repo "$REPO" --add-label needs-attention --remove-label validated || true
+
+      - name: Open pull request
+        if: steps.gate.outputs.approved == 'true' && steps.check.outputs.valid == 'true'
+        env:
+          MINT_URL: ${{ steps.check.outputs.url }}
+          MINT_HOST: ${{ steps.check.outputs.host }}
+          APPROVER: ${{ github.event.comment.user.login }}
+        run: |
+          branch="mint-submission/issue-$ISSUE"
+
+          existing=$(gh pr list --repo "$REPO" --head "$branch" --state open --json url --jq '.[0].url // empty')
+          if [ -n "$existing" ]; then
+            gh api -X POST "repos/$REPO/issues/$ISSUE/comments" -f body="A pull request for this mint is already open: $existing" > /dev/null
+            exit 0
+          fi
+
+          python scripts/mint_submission.py add --url "$MINT_URL"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add data/manual_mints.txt
+          if git diff --cached --quiet; then
+            gh api -X POST "repos/$REPO/issues/$ISSUE/comments" -f body="\`$MINT_URL\` is already listed in \`data/manual_mints.txt\`; nothing to do." > /dev/null
+            exit 0
+          fi
+          git commit -m "feat: add mint $MINT_HOST (#$ISSUE)"
+          git push --force origin "$branch"
+
+          {
+            echo "Adds \`$MINT_URL\` to \`data/manual_mints.txt\`."
+            echo
+            echo "Approved by @$APPROVER in #$ISSUE. Merging triggers the *Update mint directory* workflow, which probes the mint and adds it to \`docs/mints.json\`."
+            echo
+            echo "Closes #$ISSUE"
+            echo
+            echo "<details><summary>Validation report</summary>"
+            echo
+            cat mint-report.md
+            echo
+            echo "</details>"
+          } > pr-body.md
+
+          pr_url=$(gh pr create --repo "$REPO" --base main --head "$branch" \
+                     --title "feat: add mint $MINT_HOST" --body-file pr-body.md)
+
+          gh api -X POST "repos/$REPO/issues/$ISSUE/comments" -f body="Approved. Opened $pr_url" > /dev/null
+          gh issue edit "$ISSUE" --repo "$REPO" --add-label approved || true

@@ -29,6 +29,10 @@ from urllib.parse import urljoin, urlparse
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 MINTS_JSON = PROJECT_ROOT / "docs" / "mints.json"
 
+# Community-submitted mints (one URL per line, '#' comments allowed). Entries
+# are added by approved PRs from .github/workflows/mint-submission.yml.
+MANUAL_MINTS = PROJECT_ROOT / "data" / "manual_mints.txt"
+
 # Sources used to discover mint URLs.
 AWESOME_CASHU_RAW = (
     "https://raw.githubusercontent.com/cashubtc/awesome-cashu/main/README.md"
@@ -341,6 +345,18 @@ def extract_mints_from_awesome_readme(text: str) -> list[str]:
     return urls
 
 
+def read_manual_mints() -> list[str]:
+    """Return URLs listed in data/manual_mints.txt (ignores blanks and comments)."""
+    if not MANUAL_MINTS.exists():
+        return []
+    urls: list[str] = []
+    for line in MANUAL_MINTS.read_text(encoding="utf-8").splitlines():
+        line = line.split("#", 1)[0].strip()
+        if line.startswith("https://"):
+            urls.append(line.rstrip("/"))
+    return urls
+
+
 def discover_mints(existing: list[dict[str, Any]]) -> set[str]:
     """Aggregate mint URLs from existing data and discovery sources."""
     urls: set[str] = set()
@@ -349,6 +365,9 @@ def discover_mints(existing: list[dict[str, Any]]) -> set[str]:
         url = str(mint.get("url", "")).strip()
         if url:
             urls.add(url)
+
+    # Community submissions approved via PR.
+    urls.update(read_manual_mints())
 
     # Try to fetch awesome-cashu; if it fails, we still have existing URLs.
     status, data = http_get(AWESOME_CASHU_RAW)
