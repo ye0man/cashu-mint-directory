@@ -1,0 +1,34 @@
+{
+  "manual": {
+    "enabled": true
+  },
+  "mintradar": {
+    "enabled": true,
+    "endpoint": "https://mintradar.org/api/v1/wallets/mints?includeOffline=true&includeTest=true&includeArchived=true"
+  },
+  "cashumints": {
+    "enabled": true,
+    "endpoint": "https://cashumints.space/api/mints",
+    "types": [
+      "cashu"
+    ]
+  },
+  "nip87": {
+    "enabled": true,
+    "kinds": [
+      38172,
+      38000
+    ],
+    "relays": [
+      "wss://relay.damus.io",
+      "wss://nos.lol",
+      "wss://relay.primal.net",
+      "wss://relay.cashumints.space",
+      "wss://nostr.mintradar.org",
+      "wss://relay.azzamo.net",
+      "wss://nostr.oxtr.dev",
+      "wss://offchain.pub"
+    ],
+    "timeout_seconds": 10
+  }
+}

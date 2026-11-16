@@ -182,6 +182,23 @@
     return `<span class="nut-count" title="${escapeHtml(title)}">${nuts.length}</span>`;
   }
 
+  const SOURCE_LABELS = {
+    mintradar: "MintRadar",
+    cashumints: "Cashumints",
+    nip87: "NIP-87",
+    manual: "Submission",
+    existing: "Seed"
+  };
+
+  function sourceFormatter(cell) {
+    const sources = cell.getValue() || [];
+    if (!sources.length) return '<span class="muted">&mdash;</span>';
+    const title = sources.map(s => SOURCE_LABELS[s] || s).join(", ");
+    return `<span class="source-cell" title="${escapeHtml(title)}">${sources
+      .map(s => `<span class="chip source source-${escapeHtml(s)}">${escapeHtml(SOURCE_LABELS[s] || s)}</span>`)
+      .join("")}</span>`;
+  }
+
   function makeVersionFormatter(latestByImpl) {
     return function (cell) {
       const row = cell.getRow().getData();
@@ -348,8 +365,9 @@
   // ------------------------------------------------------------------ stats
 
   function renderStats(data) {
-    const online = data.filter(m => m.status === "online");
-    const pct = data.length ? Math.round((online.length / data.length) * 100) : 0;
+    const listed = data.filter(m => !m.is_test);
+    const online = listed.filter(m => m.status === "online");
+    const pct = listed.length ? Math.round((online.length / listed.length) * 100) : 0;
 
     const implCounts = {};
     online.forEach(m => { const k = m.implementation || "Unknown"; implCounts[k] = (implCounts[k] || 0) + 1; });
@@ -364,8 +382,9 @@
     const seen = data.map(m => Date.parse(m.last_seen)).filter(Number.isFinite);
     const last = seen.length ? new Date(Math.max(...seen)) : null;
 
+    const testCount = data.length - listed.length;
     const cards = [
-      { label: "Mints listed", value: data.length, detail: `${data.length - online.length} offline` },
+      { label: "Mints listed", value: listed.length, detail: `${listed.length - online.length} offline${testCount ? ` · ${testCount} test` : ""}` },
       { label: "Online now", value: `${online.length} <small>${pct}%</small>`, detail: "responding to /v1/info", cls: "good" },
       { label: "Implementations", value: implSorted.length, detail: implSorted.map(([k, v]) => `${k} ${v}`).join(" · ") },
       { label: "Units", value: units.length, detail: units.join(" · ") || "—" },
@@ -440,6 +459,11 @@
     const meltCounts = countBy(data, m => methodNames(m.melt_methods));
     const meltOptions = [...meltCounts.keys()].sort().map(k => ({ value: k, label: methodLabel(k), count: meltCounts.get(k) }));
 
+    const sourceCounts = countBy(data, m => m.discovered_via || []);
+    const sourceOptions = [...sourceCounts.keys()].sort().map(k => ({
+      value: k, label: SOURCE_LABELS[k] || k, count: sourceCounts.get(k)
+    }));
+
     const table = new Tabulator("#mints-table", {
       data,
       layout: "fitColumns",
@@ -468,6 +492,7 @@
         { title: "Mint via", titleDownload: "Mint methods", cssClass: "cell-wrap", field: "mint_methods", formatter: makeMethodsFormatter("nut4_disabled"), headerTooltip: "NUT-04 mint methods", sorter: (a, b) => (a || []).length - (b || []).length, accessorDownload: methodsAccessor, widthGrow: 1, minWidth: 120, responsive: 1 },
         { title: "Melt via", titleDownload: "Melt methods", cssClass: "cell-wrap", field: "melt_methods", formatter: makeMethodsFormatter("nut5_disabled"), headerTooltip: "NUT-05 melt methods", sorter: (a, b) => (a || []).length - (b || []).length, accessorDownload: methodsAccessor, widthGrow: 1, minWidth: 120, responsive: 1 },
         { title: "NUTs", field: "nuts", formatter: nutsFormatter, headerTooltip: "Optional NUTs supported (hover a count for the list)", sorter: (a, b) => (a || []).length - (b || []).length, accessorDownload: listAccessor, hozAlign: "center", width: 78, minWidth: 78, responsive: 3 },
+        { title: "Source", field: "discovered_via", cssClass: "cell-wrap", formatter: sourceFormatter, headerTooltip: "Where this mint was discovered", sorter: (a, b) => (a || []).join().localeCompare((b || []).join()), accessorDownload: listAccessor, widthGrow: 1, minWidth: 120, responsive: 4 },
         { title: "Fresh", titleDownload: "Freshness", field: "stale_score", formatter: scoreFormatter, headerTooltip: "Freshness score, 0–100", sorter: "number", width: 104, minWidth: 104, responsive: 1 },
         { title: "Contact", field: "email", cssClass: "cell-wrap", formatter: contactFormatter, accessorDownload: contactAccessor, headerSort: false, widthGrow: 1.1, minWidth: 120, responsive: 4 }
       ]
@@ -480,6 +505,7 @@
       minScoreOut: $("#min-score-out"),
       latestOnly: $("#latest-only"),
       includeOffline: $("#include-offline"),
+      includeTests: $("#include-tests"),
       count: $("#result-count")
     };
 
@@ -492,10 +518,12 @@
       impl: createMultiSelect($("#ms-impl"), implOptions, refresh),
       version: createMultiSelect($("#ms-version"), versionOptions, refresh),
       mint: createMultiSelect($("#ms-mint"), mintOptions, refresh),
-      melt: createMultiSelect($("#ms-melt"), meltOptions, refresh)
+      melt: createMultiSelect($("#ms-melt"), meltOptions, refresh),
+      source: createMultiSelect($("#ms-source"), sourceOptions, refresh)
     };
 
     function rowFilter(m) {
+      if (!els.includeTests.checked && m.is_test) return false;
       if (!els.includeOffline.checked && m.status !== "online") return false;
       if ((m.stale_score || 0) < Number(els.minScore.value)) return false;
       if (els.latestOnly.checked && !(m.version && latestByImpl[m.implementation] === m.version)) return false;
@@ -518,9 +546,12 @@
       const melt = selects.melt.values();
       if (melt.length && !melt.some(x => methodNames(m.melt_methods).includes(x))) return false;
 
+      const source = selects.source.values();
+      if (source.length && !source.some(x => (m.discovered_via || []).includes(x))) return false;
+
       const term = els.search.value.trim().toLowerCase();
       if (term) {
-        const hay = [m.name, m.url, m.implementation, m.version, m.description].join(" ").toLowerCase();
+        const hay = [m.name, m.url, m.implementation, m.version, m.description, ...(m.discovered_via || [])].join(" ").toLowerCase();
         if (!hay.includes(term)) return false;
       }
       return true;
@@ -541,6 +572,7 @@
     els.search.addEventListener("input", refresh);
     els.latestOnly.addEventListener("change", refresh);
     els.includeOffline.addEventListener("change", refresh);
+    els.includeTests.addEventListener("change", refresh);
     els.minScore.addEventListener("input", () => {
       els.minScoreOut.textContent = els.minScore.value;
       refresh();
@@ -553,6 +585,7 @@
       els.minScoreOut.textContent = "0";
       els.latestOnly.checked = false;
       els.includeOffline.checked = false;
+      els.includeTests.checked = false;
       refresh();
     });
 

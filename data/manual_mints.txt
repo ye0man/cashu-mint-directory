@@ -1,5 +1,34 @@
 # Community-submitted Cashu mints, one https:// URL per line.
 #
 # Entries are added by pull requests opened from approved "Suggest a mint"
-# issues (see .github/workflows/mint-submission.yml). scripts/update_mints.py
-# probes every URL here alongside mints discovered from awesome-cashu.
+# issues (see .github/workflows/mint-submission.yml), or directly by maintainers
+# from the discovery review queue. scripts/update_mints.py probes every URL here
+# alongside the live sources configured in data/sources.json.
+
+https://bb.mountainlake.io/cashu/api/v1/WpczZwvNES7wMa8ForKGmh
+https://bitcoin.aleafnd.org/cashu
+https://bitcointxoko.com/cashu/api/v1/dMk78c5aR7uhHzcqH3Bwqp
+https://btc.aleafnd.org/cashu
+https://cashu.boats
+https://cashu.mineracks.com
+https://lnwallet.app/cashu/api/v1/9tZLEVyknrtaGxeBjEecc4
+https://mint.azzamo.net
+https://mint.ckuemmerle.com
+https://mint.gwoq.com
+https://mint.lnfast.com
+https://mint.lnwallet.app
+https://mint.lnwasanee.com
+https://mint.nostrfeed.com
+https://mint.nostrich.cc
+https://mint.nostrodomo.net
+https://mint.nostrzap.me
+https://mint.nutmix.cash
+https://mint.quixote.cash/cashu/api/v1/TX6nZECe8r6hjDxtdA6N5b
+https://mint.satscribe.me
+https://mint.slnstudio.info
+https://mint2.nutmix.cash
+https://mintburnok.katanya.dev
+https://obsessedjerky7.lnbits.com/cashu/api/v1/L4bNfiBtTyhEpZWdt6QTb4
+https://smilemoji.cash:3338
+https://stablenut.umint.cash
+https://stpaulinternet.net/cashu/api/v1/TTcmiEDSWmkefef3XqERKv

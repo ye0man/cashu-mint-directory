@@ -16,11 +16,9 @@ from the environment, never interpolated into shell commands.
 from __future__ import annotations
 
 import argparse
-import ipaddress
 import json
 import os
 import re
-import socket
 import sys
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -33,59 +31,14 @@ MINTS_JSON = update_mints.MINTS_JSON
 MANUAL_MINTS = update_mints.MANUAL_MINTS
 
 BOT_MARKER = "<!-- mint-submission-bot -->"
-PATH_RE = re.compile(r"^[A-Za-z0-9._~/-]*$")
-HOST_RE = re.compile(r"^[a-z0-9.-]+\.[a-z]{2,}$")
 
 
 # ---------------------------------------------------------------------------
-# URL handling
+# URL handling (shared with scripts/update_mints.py)
 # ---------------------------------------------------------------------------
 
-
-def normalize_mint_url(raw: str) -> str | None:
-    """
-    Normalize a mint URL. Mirrors normalizeMintUrl() in docs/assets/app.js:
-    https only, lowercase host, optional port, no credentials/query/fragment,
-    trailing slash and a trailing /v1/info stripped.
-    """
-    s = (raw or "").strip().strip("<>`'\"")
-    if not s:
-        return None
-    if not re.match(r"^[a-z][a-z0-9+.-]*://", s, re.I):
-        s = "https://" + s
-    try:
-        parts = urlsplit(s)
-        port = parts.port
-    except ValueError:
-        return None
-    if parts.scheme.lower() != "https":
-        return None
-    if parts.username or parts.password or parts.query or parts.fragment:
-        return None
-    host = (parts.hostname or "").lower()
-    if not HOST_RE.match(host) or host.endswith(".onion"):
-        return None
-    path = re.sub(r"/+$", "", parts.path)
-    path = re.sub(r"/v1/info$", "", path, flags=re.I)
-    path = re.sub(r"/+$", "", path)
-    if not PATH_RE.match(path):
-        return None
-    netloc = f"{host}:{port}" if port and port != 443 else host
-    return f"https://{netloc}{path}"
-
-
-def host_is_public(host: str) -> tuple[bool, str]:
-    """Resolve a hostname and refuse private, loopback, or otherwise non-global targets."""
-    try:
-        infos = socket.getaddrinfo(host, None)
-    except socket.gaierror as exc:
-        return False, f"DNS lookup failed ({exc.strerror or exc})"
-    addrs = {info[4][0] for info in infos}
-    for addr in addrs:
-        ip = ipaddress.ip_address(addr.split("%", 1)[0])
-        if not ip.is_global:
-            return False, f"resolves to a non-public address ({ip})"
-    return True, ""
+normalize_mint_url = update_mints.normalize_mint_url
+host_is_public = update_mints.host_is_public
 
 
 def extract_url_from_issue(body: str) -> str:
@@ -105,7 +58,7 @@ def known_urls() -> set[str]:
     urls: set[str] = set()
     if MINTS_JSON.exists():
         try:
-            for mint in json.loads(MINTS_JSON.read_text(encoding="utf-8")):
+            for mint in json.loads(MINTS_JSON.read_text(encoding="utf-8-sig")):
                 n = normalize_mint_url(str(mint.get("url", "")))
                 if n:
                     urls.add(n)
@@ -219,7 +172,7 @@ def cmd_validate(args: argparse.Namespace) -> int:
 
     valid = not problems and record is not None
     report = build_report(url, raw, valid, problems, record)
-    Path(args.report).write_text(report, encoding="utf-8")
+    Path(args.report).write_text(report, encoding="utf-8", newline="\n")
     set_outputs(valid="true" if valid else "false", url=url or "", host=(urlsplit(url).hostname if url else "") or "")
     print(report)
     return 0
@@ -231,7 +184,7 @@ def cmd_add(args: argparse.Namespace) -> int:
         print(f"Refusing to add invalid URL: {args.url!r}", file=sys.stderr)
         return 1
     MANUAL_MINTS.parent.mkdir(parents=True, exist_ok=True)
-    lines = MANUAL_MINTS.read_text(encoding="utf-8").splitlines() if MANUAL_MINTS.exists() else []
+    lines = MANUAL_MINTS.read_text(encoding="utf-8-sig").splitlines() if MANUAL_MINTS.exists() else []
     header = [line for line in lines if line.strip().startswith("#") or not line.strip()]
     entries = {normalize_mint_url(line) or line.strip() for line in lines if line.strip() and not line.strip().startswith("#")}
     if url in entries:
@@ -241,7 +194,7 @@ def cmd_add(args: argparse.Namespace) -> int:
     while header and not header[-1].strip():
         header.pop()
     content = "\n".join(header + [""] + sorted(entries)) + "\n"
-    MANUAL_MINTS.write_text(content, encoding="utf-8")
+    MANUAL_MINTS.write_text(content, encoding="utf-8", newline="\n")
     print(f"Added {url} to {MANUAL_MINTS.relative_to(PROJECT_ROOT)}")
     return 0
 

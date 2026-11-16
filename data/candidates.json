@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://lnbits.com",
+    "source": "cashumints",
+    "reason": "host is a denylisted or non-public host",
+    "first_seen": "2026-11-16T11:06:06.169567Z"
+  },
+  {
+    "raw": "https://99.68.36.178:8000",
+    "source": "cashumints",
+    "reason": "invalid_url",
+    "first_seen": "2026-11-16T11:06:06.178449Z"
+  },
+  {
+    "url": "https://test-mint.example.invalid",
+    "source": "nip87",
+    "reason": "host is a denylisted or non-public host",
+    "first_seen": "2026-11-16T11:06:09.633685Z"
+  },
+  {
+    "url": "https://mint.efectivodigital.mx",
+    "source": "nip87",
+    "reason": "nip87_unverified",
+    "first_seen": "2026-11-16T11:14:24.300772Z"
+  },
+  {
+    "url": "https://mint.dev.orangepill.kr",
+    "source": "nip87",
+    "reason": "nip87_unverified",
+    "first_seen": "2026-11-16T11:14:24.304845Z"
+  }
+]

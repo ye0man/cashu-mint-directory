@@ -81,6 +81,10 @@
           <span class="small-caps" id="lbl-melt">Melt methods <span class="hint">(NUT-05)</span></span>
           <div class="multi-select" id="ms-melt" data-placeholder="Any method"></div>
         </div>
+        <div class="filter-group">
+          <span class="small-caps" id="lbl-source">Source</span>
+          <div class="multi-select" id="ms-source" data-placeholder="Any source"></div>
+        </div>
       </div>
       <div class="filters-row filters-row-secondary">
         <div class="filter-group filter-range">
@@ -94,6 +98,10 @@
         <label class="checkbox-label">
           <input id="include-offline" type="checkbox" />
           Include offline mints
+        </label>
+        <label class="checkbox-label">
+          <input id="include-tests" type="checkbox" />
+          Include test mints
         </label>
         <div class="filters-meta">
           <span id="result-count" class="mono" aria-live="polite"></span>
@@ -112,6 +120,8 @@
           <p class="small-caps"><span class="hash">0x</span>resources</p>
           <ul class="resource-list">
             <li><a href="https://cashubtc.github.io/nuts/" target="_blank" rel="noopener">NUTs specification</a> <span class="muted">&mdash; the Cashu protocol spec</span></li>
+            <li><a href="https://mintradar.org" target="_blank" rel="noopener">MintRadar</a> <span class="muted">&mdash; uptime, latency and reliability scores</span></li>
+            <li><a href="https://cashumints.space" target="_blank" rel="noopener">Cashumints.space</a> <span class="muted">&mdash; NIP-87 reviews and mint pages</span></li>
             <li><a href="https://audit.8333.space" target="_blank" rel="noopener">Mint Auditor</a> <span class="muted">&mdash; reliability audits of public mints</span></li>
             <li><a href="https://docs.cashu.space" target="_blank" rel="noopener">Cashu docs</a> <span class="muted">&mdash; guides for users and mint operators</span></li>
             <li><a href="https://cashu.space" target="_blank" rel="noopener">cashu.space</a> <span class="muted">&mdash; project home</span></li>
@@ -122,9 +132,10 @@
         <div>
           <p class="small-caps"><span class="hash">0x</span>about-the-data</p>
           <p class="muted">
-            Mints are discovered from <a href="https://github.com/cashubtc/awesome-cashu" target="_blank" rel="noopener">awesome-cashu</a>,
-            community submissions, and previously seen URLs, then probed directly. Freshness (0&ndash;100) combines uptime,
-            optional-NUT coverage, version age, contact info, and unit discoverability.
+            Mints are discovered from <a href="https://mintradar.org" target="_blank" rel="noopener">MintRadar</a>,
+            <a href="https://cashumints.space" target="_blank" rel="noopener">Cashumints.space</a>, NIP-87 announcements and
+            recommendations on Nostr, community submissions, and previously seen URLs &mdash; then probed directly.
+            Freshness (0&ndash;100) combines uptime, optional-NUT coverage, version age, contact info, and time sync.
             <a href="https://github.com/ye0man/cashu-mint-directory#freshness-scoring" target="_blank" rel="noopener">Scoring details</a>.
           </p>
           <p class="footer-meta mono">

@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'data/manual_mints.txt'  # pick up newly approved mint submissions right away
+      - 'data/sources.json'      # re-run when the discovery source list changes
 
 concurrency:
   group: update-mints
@@ -30,14 +31,17 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Probe mints and regenerate mints.json
-        run: python scripts/update_mints.py
+      - name: Install NIP-87 client dependency
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Discover, probe and regenerate mints.json
+        run: python scripts/update_mints.py --report "$GITHUB_STEP_SUMMARY"
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/mints.json
+          git add docs/mints.json data/candidates.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else

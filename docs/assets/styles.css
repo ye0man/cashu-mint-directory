@@ -473,6 +473,14 @@ input[type="range"] { accent-color: var(--copper); width: 100%; }
   white-space: nowrap;
 }
 
+.source-cell { display: flex; flex-wrap: wrap; gap: 0.15rem; }
+.source { font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.source-mintradar { color: #2f5d8a; border-color: rgba(47, 93, 138, 0.5); background: rgba(47, 93, 138, 0.08); }
+.source-cashumints { color: var(--green); border-color: rgba(47, 122, 74, 0.55); background: rgba(47, 122, 74, 0.08); }
+.source-nip87 { color: var(--copper-dark); border-color: var(--copper); background: rgba(196, 92, 38, 0.1); }
+.source-manual { color: var(--amber-dark); border-color: rgba(232, 163, 23, 0.7); background: rgba(232, 163, 23, 0.1); }
+.source-existing { color: var(--slate); border-style: dashed; }
+
 .unit-sat, .unit-msat, .unit-btc { color: var(--amber-dark); border-color: rgba(232, 163, 23, 0.7); background: rgba(232, 163, 23, 0.1); }
 .unit-usd { color: var(--green); border-color: rgba(47, 122, 74, 0.55); background: rgba(47, 122, 74, 0.08); }
 .unit-eur { color: #2f5d8a; border-color: rgba(47, 93, 138, 0.5); background: rgba(47, 93, 138, 0.08); }
