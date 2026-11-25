@@ -16,5 +16,17 @@
     "source": "nip87",
     "reason": "host is a denylisted or non-public host",
     "first_seen": "2026-11-16T11:06:09.633685Z"
+  },
+  {
+    "url": "https://mint.efectivodigital.mx",
+    "source": "nip87",
+    "reason": "nip87_unverified",
+    "first_seen": "2026-11-25T21:32:19.183968Z"
+  },
+  {
+    "url": "https://mint.dev.orangepill.kr",
+    "source": "nip87",
+    "reason": "nip87_unverified",
+    "first_seen": "2026-11-25T21:32:19.383766Z"
   }
 ]
